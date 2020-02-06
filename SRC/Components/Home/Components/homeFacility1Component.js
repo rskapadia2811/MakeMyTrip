@@ -1,26 +1,24 @@
 import React from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import {fonts, homeHeaderIcon} from '../../../Helpers/variableHelper';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Foundation from 'react-native-vector-icons/Foundation';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from '../../../Helpers/screenHelper';
 import CustomIcon from '../../../Common/CustomIcon';
-const HomeFacility1Component = () => {
+const HomeFacility1Component = ({navigation}) => {
   const FacilityData = [
     {
       id: 1,
       name: 'Flights',
       iconType: SimpleLineIcons,
       iconName: 'plane',
-      onPress: () => {},
+      onPress: () => {
+        navigation.navigate('FlightSearchComponent');
+      },
     },
     {
       id: 2,
@@ -54,16 +52,18 @@ const HomeFacility1Component = () => {
   const facilityRenderItem = ({item, index}) => {
     return (
       <View style={Styles.FacilityRow}>
-        <View style={Styles.singleFacilityContainer}>
-          <CustomIcon
-            IconType={item.iconType}
-            name={item.iconName}
-            size={homeHeaderIcon.size}
-            color={homeHeaderIcon.color}
-            style={Styles.iconStyle}
-          />
-          <Text style={Styles.facilityName}>{item.name}</Text>
-        </View>
+        <TouchableOpacity onPress={() => item.onPress()}>
+          <View style={Styles.singleFacilityContainer}>
+            <CustomIcon
+              IconType={item.iconType}
+              name={item.iconName}
+              size={homeHeaderIcon.size}
+              color={homeHeaderIcon.color}
+              style={Styles.iconStyle}
+            />
+            <Text style={Styles.facilityName}>{item.name}</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };

@@ -20,15 +20,21 @@ import CustomTextInput from '../../../../Common/CustomTextInput';
 //
 const LoginOTPBodyComponent = ({setVisibleButton, prevData, navigation}) => {
   const [otp, setOtp] = useState(10);
+  const [disable, setDisable] = useState(true);
+  const [opacity, setOpacity] = useState(0.5);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      let o = otp - 1;
-      setOtp(o);
+      if (otp != 0) {
+        setOtp(otp - 1);
+      } else {
+        setOpacity(1);
+        setDisable(false);
+      }
     }, 1000);
-    return () => clearInterval(() => otpinterval);
+    return () => clearInterval(interval);
   }, [otp]);
-
+  const data = {phone: navigation.getParam('data').phone};
   return (
     <View style={{flex: 1}}>
       <View style={Styles.loginSignUpBodyContainer}>
@@ -48,9 +54,8 @@ const LoginOTPBodyComponent = ({setVisibleButton, prevData, navigation}) => {
               returnKeyType={'next'}
               secureTextEntry={true}
               onChangeText={text => {
-                setOtp(text);
                 if (!isNaN(text) && lengthValidation(text, 6, 6)) {
-                  setVisibleButton(true);
+                  setVisibleButton(true, data);
                 } else {
                   setVisibleButton(false);
                 }
@@ -64,9 +69,9 @@ const LoginOTPBodyComponent = ({setVisibleButton, prevData, navigation}) => {
             </View>
             <View style={{...Styles.resendOtpContainer}}>
               <TouchableOpacity
+                disabled={disable}
                 style={{
-                  disabled: otp == 0 ? true : false,
-                  opacity: otp == 0 ? 1 : 0.5,
+                  opacity: opacity,
                 }}>
                 <Text style={{...Styles.resendOTPText}}>Resend OTP</Text>
               </TouchableOpacity>
@@ -76,12 +81,6 @@ const LoginOTPBodyComponent = ({setVisibleButton, prevData, navigation}) => {
       </View>
     </View>
   );
-};
-
-const reRender = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue(value => ++value); // update the state to force render
 };
 
 const Styles = StyleSheet.create({

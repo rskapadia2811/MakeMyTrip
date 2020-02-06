@@ -14,8 +14,6 @@ class HomeBodyComponent extends Component {
     super();
     this.scroll = new Animated.Value(0);
   }
-
-  handleScroll = event => {};
   render() {
     return (
       <>
@@ -37,7 +35,7 @@ class HomeBodyComponent extends Component {
               }),
             },
           ]}>
-          <HomeFacility1Component />
+          <HomeFacility1Component navigation={this.props.navigation} />
         </Animated.View>
         <ScrollView
           scrollEventThrottle={1}

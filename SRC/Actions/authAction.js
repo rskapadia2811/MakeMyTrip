@@ -70,3 +70,24 @@ export const loginWithEmail = (data, loginPasswordCallback) => {
       });
   };
 };
+
+export const loginWithPhone = (data, loginPasswordCallback) => {
+  return () => {
+    return API('POST', '/users/loginUserWithPhone', data)
+      .then(response => {
+        if (
+          response.data.status === 204 ||
+          response.data.status === 400 ||
+          response.data.status === 401
+        ) {
+          alert(response.data.message);
+        } else if (response.data.status === 200) {
+          setAsyncData('email', response.data.data.email);
+          loginPasswordCallback('HomeComponent');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};

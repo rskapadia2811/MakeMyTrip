@@ -16,7 +16,7 @@ class HomeMainComponent extends Component {
       <SafeAreaView style={Styles.safeArea}>
         <View style={Styles.mainContainer}>
           <HomeHeaderComponent navigation={this.props.navigation} />
-          <HomeBodyComponent />
+          <HomeBodyComponent navigation={this.props.navigation} />
         </View>
       </SafeAreaView>
     );

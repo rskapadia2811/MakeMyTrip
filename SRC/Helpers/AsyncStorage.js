@@ -8,7 +8,7 @@ const setAsyncData = async (key, value) => {
 };
 
 const getAsyncData = async key => {
-    try {0
+    try {
     let value = await AsyncStorage.getItem(key);
     if (value != null) {
       return Promise.resolve(value);

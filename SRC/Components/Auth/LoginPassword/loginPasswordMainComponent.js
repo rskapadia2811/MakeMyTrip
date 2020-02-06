@@ -8,7 +8,7 @@ import LoginPasswordBodyComponent from './Components/loginPasswordBodyComponent'
 import LoginPasswordFooterComponent from './Components/loginPasswordFooterComponent';
 
 // Action
-import {loginWithEmail} from '../../../Actions/authAction';
+import {loginWithEmail,loginWithPhone} from '../../../Actions/authAction';
 export class LoginPasswordMainComponent extends Component {
   loginPasswordCallback = component => {
     this.props.navigation.navigate(component);
@@ -18,17 +18,9 @@ export class LoginPasswordMainComponent extends Component {
     this.state = {
       visibleButton: false,
     };
-    this.email = '';
-    this.phone = '';
   }
   componentDidMount(): void {
-    let data = this.props.navigation.getParam('data', '');
-    if (data && data.email) {
-      this.email = data.email;
-    } else if (data && data.phone) {
-      this.phone = data.phone;
-    }
-    this.data = {email: this.email, phone: this.phone};
+    this.data = this.props.navigation.getParam('data', '');
   }
 
   render() {
@@ -41,6 +33,7 @@ export class LoginPasswordMainComponent extends Component {
             <LoginPasswordBodyComponent
               prevData={this.data}
               setVisibleButton={(value, prevData) => {
+                console.log(prevData);
                 this.setState({
                   visibleButton: value,
                 });
@@ -50,12 +43,19 @@ export class LoginPasswordMainComponent extends Component {
           </View>
           <LoginPasswordFooterComponent
             visibleButton={this.state.visibleButton}
-            onPress={() =>
-              this.props.loginWithEmail(
-                this.prevData,
-                this.loginPasswordCallback,
-              )
-            }
+            onPress={() => {
+              if (this.prevData && this.prevData.email) {
+                this.props.loginWithEmail(
+                  this.prevData,
+                  this.loginPasswordCallback,
+                );
+              } else if (this.prevData && this.prevData.phone) {
+                this.props.loginWithPhone(
+                  this.prevData,
+                  this.loginPasswordCallback,
+                );
+              }
+            }}
           />
         </SafeAreaView>
       </View>
@@ -74,6 +74,7 @@ const Styles = StyleSheet.create({
 });
 const mapDispatchToProps = {
   loginWithEmail,
+  loginWithPhone,
 };
 export default connect(
   null,

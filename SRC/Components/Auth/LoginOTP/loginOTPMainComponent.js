@@ -31,7 +31,6 @@ export class LoginOTPMainComponent extends Component {
     this.data = {email: this.email, phone: this.phone};
   }
 
-
   render() {
     return (
       <View style={{flex: 1}}>
@@ -52,12 +51,11 @@ export class LoginOTPMainComponent extends Component {
           </View>
           <LoginOTPFooterComponent
             visibleButton={this.state.visibleButton}
-            onPress={() =>
-              this.props.loginWithEmail(
-                this.prevData,
-                this.loginPasswordCallback,
-              )
-            }
+            onPress={() => {
+              this.props.navigation.navigate('LoginPasswordComponent', {
+                data: this.prevData,
+              });
+            }}
           />
         </SafeAreaView>
       </View>
