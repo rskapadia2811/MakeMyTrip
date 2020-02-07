@@ -6,6 +6,7 @@ import {registerUser} from '../../../Actions/authAction';
 import RegisterFnameLnameDetailHeaderComponent from './Components/registerFnameLnameDetailHeaderComponent';
 import RegisterFnameLnameDetailBodyComponent from './Components/registerFnameLnameDetailBodyComponent';
 import RegisterFnameLnameDetailFooterComponent from './Components/registerFnameLnameDetailFooterComponent';
+import GLOBAL from '../../GLOBAL';
 
 // Action
 export class RegisterFnameLnameDetailMainComponent extends Component {
@@ -23,31 +24,28 @@ export class RegisterFnameLnameDetailMainComponent extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <StatusBar barStyle={'dark-content'} />
-        <SafeAreaView style={Styles.safeArea}>
-          <View style={Styles.loginSignupMainContainer}>
-            <RegisterFnameLnameDetailHeaderComponent
-              navigation={this.props.navigation}
-            />
-            <RegisterFnameLnameDetailBodyComponent
-              prevData={this.props.navigation.getParam('prevData', '')}
-              setVisibleButton={(value, prevData) => {
-                this.setState({
-                  visibleButton: value,
-                });
-                this.prevData = prevData;
-              }}
-            />
-          </View>
-          <RegisterFnameLnameDetailFooterComponent
-            visibleButton={this.state.visibleButton}
-            onPress={() => {
-              this.props.registerUser(this.prevData, this.registerThisUser);
+      <GLOBAL>
+        <View style={Styles.loginSignupMainContainer}>
+          <RegisterFnameLnameDetailHeaderComponent
+            navigation={this.props.navigation}
+          />
+          <RegisterFnameLnameDetailBodyComponent
+            prevData={this.props.navigation.getParam('prevData', '')}
+            setVisibleButton={(value, prevData) => {
+              this.setState({
+                visibleButton: value,
+              });
+              this.prevData = prevData;
             }}
           />
-        </SafeAreaView>
-      </View>
+        </View>
+        <RegisterFnameLnameDetailFooterComponent
+          visibleButton={this.state.visibleButton}
+          onPress={() => {
+            this.props.registerUser(this.prevData, this.registerThisUser);
+          }}
+        />
+      </GLOBAL>
     );
   }
 }

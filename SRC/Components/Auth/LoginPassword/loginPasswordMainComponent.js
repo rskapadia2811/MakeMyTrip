@@ -8,7 +8,8 @@ import LoginPasswordBodyComponent from './Components/loginPasswordBodyComponent'
 import LoginPasswordFooterComponent from './Components/loginPasswordFooterComponent';
 
 // Action
-import {loginWithEmail,loginWithPhone} from '../../../Actions/authAction';
+import {loginWithEmail, loginWithPhone} from '../../../Actions/authAction';
+import GLOBAL from '../../GLOBAL';
 export class LoginPasswordMainComponent extends Component {
   loginPasswordCallback = component => {
     this.props.navigation.navigate(component);
@@ -25,40 +26,37 @@ export class LoginPasswordMainComponent extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <StatusBar barStyle={'dark-content'} />
-        <SafeAreaView style={Styles.safeArea}>
-          <View style={Styles.loginSignupMainContainer}>
-            <LoginPasswordHeaderComponent navigation={this.props.navigation} />
-            <LoginPasswordBodyComponent
-              prevData={this.data}
-              setVisibleButton={(value, prevData) => {
-                console.log(prevData);
-                this.setState({
-                  visibleButton: value,
-                });
-                this.prevData = prevData;
-              }}
-            />
-          </View>
-          <LoginPasswordFooterComponent
-            visibleButton={this.state.visibleButton}
-            onPress={() => {
-              if (this.prevData && this.prevData.email) {
-                this.props.loginWithEmail(
-                  this.prevData,
-                  this.loginPasswordCallback,
-                );
-              } else if (this.prevData && this.prevData.phone) {
-                this.props.loginWithPhone(
-                  this.prevData,
-                  this.loginPasswordCallback,
-                );
-              }
+      <GLOBAL>
+        <View style={Styles.loginSignupMainContainer}>
+          <LoginPasswordHeaderComponent navigation={this.props.navigation} />
+          <LoginPasswordBodyComponent
+            prevData={this.data}
+            setVisibleButton={(value, prevData) => {
+              console.log(prevData);
+              this.setState({
+                visibleButton: value,
+              });
+              this.prevData = prevData;
             }}
           />
-        </SafeAreaView>
-      </View>
+        </View>
+        <LoginPasswordFooterComponent
+          visibleButton={this.state.visibleButton}
+          onPress={() => {
+            if (this.prevData && this.prevData.email) {
+              this.props.loginWithEmail(
+                this.prevData,
+                this.loginPasswordCallback,
+              );
+            } else if (this.prevData && this.prevData.phone) {
+              this.props.loginWithPhone(
+                this.prevData,
+                this.loginPasswordCallback,
+              );
+            }
+          }}
+        />
+      </GLOBAL>
     );
   }
 }

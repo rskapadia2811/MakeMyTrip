@@ -15,6 +15,7 @@ import {
 } from '../../Helpers/screenHelper';
 import {getAsyncData, setAsyncData} from '../../Helpers/AsyncStorage';
 import LinearGradient from 'react-native-linear-gradient';
+import GLOBAL from '../GLOBAL';
 class WelcomeSplashComponent extends Component {
   constructor() {
     super();
@@ -52,35 +53,36 @@ class WelcomeSplashComponent extends Component {
   welcomeDataLoad = this.welcomeSplashData.map((item, index) => {
     if (index === 6) {
       return (
-        <View style={{height: hp(100), width: wp(100)}}>
-          <StatusBar barStyle={'dark-content'} />
-          <View style={Styles.gotoScreenContainer}>
-            <Image
-              source={require('../../Assets/Images/mmtLogo.png')}
-              style={Styles.imageDesign}
-            />
-            <Text style={Styles.mmtText}>MakeMyTrip</Text>
-          </View>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <TouchableOpacity
-              onPress={() => {
-                setAsyncData('welcomePage', '1');
-                this.props.navigation.navigate('HomeComponent');
+        <GLOBAL>
+          <View style={{height: hp(100), width: wp(100)}}>
+            <View style={Styles.gotoScreenContainer}>
+              <Image
+                source={require('../../Assets/Images/mmtLogo.png')}
+                style={Styles.imageDesign}
+              />
+              <Text style={Styles.mmtText}>MakeMyTrip</Text>
+            </View>
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
               }}>
-              <LinearGradient
-                colors={['#53b2fe', '#065af3']}
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 0}}
-                style={Styles.continueButtonContainer}>
-                <Text style={Styles.continueToMMTText}>Conitue to MMT</Text>
-              </LinearGradient>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setAsyncData('welcomePage', '1');
+                  this.props.navigation.navigate('HomeComponent');
+                }}>
+                <LinearGradient
+                  colors={['#53b2fe', '#065af3']}
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 0}}
+                  style={Styles.continueButtonContainer}>
+                  <Text style={Styles.continueToMMTText}>Conitue to MMT</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        </GLOBAL>
       );
     } else {
       return (

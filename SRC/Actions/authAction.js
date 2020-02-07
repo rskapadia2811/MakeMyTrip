@@ -1,5 +1,6 @@
 import API from '../Services/API';
 import {setAsyncData} from '../Helpers/AsyncStorage';
+import {baseURL} from '../Helpers/variableHelper';
 export const checkEmailMobile = (type, data, loginSignUpCallback) => {
   return () => {
     let url = '',
@@ -15,7 +16,7 @@ export const checkEmailMobile = (type, data, loginSignUpCallback) => {
       successComponent = 'RegisterPasswordComponent';
       conflictComponent = 'LoginPasswordComponent';
     }
-    return API('POST', url, data)
+    return API('POST', baseURL + url, data)
       .then(response => {
         if (response.data.status === 409) {
           loginSignUpCallback(conflictComponent, data);
@@ -31,9 +32,7 @@ export const checkEmailMobile = (type, data, loginSignUpCallback) => {
 
 export const registerUser = (data, registerCallback) => {
   return () => {
-    console.log(data);
-    debugger;
-    return API('POST', '/users/registerUser', data)
+    return API('POST', baseURL + '/users/registerUser', data)
       .then(response => {
         console.log(data);
         console.log(response.data.status);
@@ -52,7 +51,7 @@ export const registerUser = (data, registerCallback) => {
 
 export const loginWithEmail = (data, loginPasswordCallback) => {
   return () => {
-    return API('POST', '/users/loginUserWithEmail', data)
+    return API('POST', baseURL + '/users/loginUserWithEmail', data)
       .then(response => {
         if (
           response.data.status === 204 ||
@@ -73,7 +72,7 @@ export const loginWithEmail = (data, loginPasswordCallback) => {
 
 export const loginWithPhone = (data, loginPasswordCallback) => {
   return () => {
-    return API('POST', '/users/loginUserWithPhone', data)
+    return API('POST', baseURL + '/users/loginUserWithPhone', data)
       .then(response => {
         if (
           response.data.status === 204 ||

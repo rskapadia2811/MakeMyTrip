@@ -3,7 +3,7 @@ import {Platform} from 'react-native';
 
 module.exports = {
   // API URL
-  APIurl: 'http://localhost',
+  baseURL: 'http://localhost:3001',
 
   // Home CustomIcon Style
   homeHeaderIcon: {

@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {
-  View,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-} from 'react-native';
+import {View, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 // Component
 import RegisterPasswordHeaderComponent from './Components/registerPasswordHeaderComponent';
 import RegisterPasswordBodyComponent from './Components/registerPasswordBodyComponent';
 import RegisterPasswordFooterComponent from './Components/registerPasswordFooterComponent';
+import GLOBAL from '../../GLOBAL';
 
 // Action
 export class RegisterPasswordMainComponent extends Component {
@@ -38,29 +34,24 @@ export class RegisterPasswordMainComponent extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <StatusBar barStyle={'dark-content'} />
-        <SafeAreaView style={Styles.safeArea}>
-          <View style={Styles.loginSignupMainContainer}>
-            <RegisterPasswordHeaderComponent
-              navigation={this.props.navigation}
-            />
-            <RegisterPasswordBodyComponent
-              prevData={this.data}
-              setVisibleButton={(value, prevData) => {
-                this.setState({
-                  visibleButton: value,
-                });
-                this.prevData = prevData;
-              }}
-            />
-          </View>
-          <RegisterPasswordFooterComponent
-            visibleButton={this.state.visibleButton}
-            onPress={() => this.passwordCallback(this.prevData)}
+      <GLOBAL>
+        <View style={Styles.loginSignupMainContainer}>
+          <RegisterPasswordHeaderComponent navigation={this.props.navigation} />
+          <RegisterPasswordBodyComponent
+            prevData={this.data}
+            setVisibleButton={(value, prevData) => {
+              this.setState({
+                visibleButton: value,
+              });
+              this.prevData = prevData;
+            }}
           />
-        </SafeAreaView>
-      </View>
+        </View>
+        <RegisterPasswordFooterComponent
+          visibleButton={this.state.visibleButton}
+          onPress={() => this.passwordCallback(this.prevData)}
+        />
+      </GLOBAL>
     );
   }
 }

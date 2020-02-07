@@ -8,6 +8,7 @@ import LoginSignUpFooterComponent from './Components/loginSignUpFooterComponent'
 
 // Action
 import {checkEmailMobile} from '../../../Actions/authAction';
+import GLOBAL from '../../GLOBAL';
 
 export class LoginSignUpMainComponent extends Component {
   loginSignUpCallback = (component, data) => {
@@ -15,24 +16,17 @@ export class LoginSignUpMainComponent extends Component {
   };
   render() {
     return (
-      <View style={{flex: 1}}>
-        <StatusBar barStyle={'dark-content'} />
-        <SafeAreaView style={Styles.safeArea}>
-          <View style={Styles.loginSignupMainContainer}>
-            <LoginSignUpHeaderComponent navigation={this.props.navigation} />
-            <LoginSignUpBodyComponent
-              emailMobileCheck={(type, data) => {
-                this.props.checkEmailMobile(
-                  type,
-                  data,
-                  this.loginSignUpCallback,
-                );
-              }}
-            />
-          </View>
-          <LoginSignUpFooterComponent />
-        </SafeAreaView>
-      </View>
+      <GLOBAL>
+        <View style={Styles.loginSignupMainContainer}>
+          <LoginSignUpHeaderComponent navigation={this.props.navigation} />
+          <LoginSignUpBodyComponent
+            emailMobileCheck={(type, data) => {
+              this.props.checkEmailMobile(type, data, this.loginSignUpCallback);
+            }}
+          />
+        </View>
+        <LoginSignUpFooterComponent />
+      </GLOBAL>
     );
   }
 }

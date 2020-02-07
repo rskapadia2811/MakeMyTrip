@@ -9,6 +9,7 @@ import LoginOTPFooterComponent from './Components/loginOTPFooterComponent';
 
 // Action
 import {loginWithEmail} from '../../../Actions/authAction';
+import GLOBAL from '../../GLOBAL';
 export class LoginOTPMainComponent extends Component {
   loginPasswordCallback = component => {
     this.props.navigation.navigate(component);
@@ -33,32 +34,29 @@ export class LoginOTPMainComponent extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <StatusBar barStyle={'dark-content'} />
-        <SafeAreaView style={Styles.safeArea}>
-          <View style={Styles.loginSignupMainContainer}>
-            <LoginOTPHeaderComponent navigation={this.props.navigation} />
-            <LoginOTPBodyComponent
-              navigation={this.props.navigation}
-              prevData={this.data}
-              setVisibleButton={(value, prevData) => {
-                this.setState({
-                  visibleButton: value,
-                });
-                this.prevData = prevData;
-              }}
-            />
-          </View>
-          <LoginOTPFooterComponent
-            visibleButton={this.state.visibleButton}
-            onPress={() => {
-              this.props.navigation.navigate('LoginPasswordComponent', {
-                data: this.prevData,
+      <GLOBAL>
+        <View style={Styles.loginSignupMainContainer}>
+          <LoginOTPHeaderComponent navigation={this.props.navigation} />
+          <LoginOTPBodyComponent
+            navigation={this.props.navigation}
+            prevData={this.data}
+            setVisibleButton={(value, prevData) => {
+              this.setState({
+                visibleButton: value,
               });
+              this.prevData = prevData;
             }}
           />
-        </SafeAreaView>
-      </View>
+        </View>
+        <LoginOTPFooterComponent
+          visibleButton={this.state.visibleButton}
+          onPress={() => {
+            this.props.navigation.navigate('LoginPasswordComponent', {
+              data: this.prevData,
+            });
+          }}
+        />
+      </GLOBAL>
     );
   }
 }

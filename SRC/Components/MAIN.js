@@ -2,7 +2,6 @@ import {getAsyncData} from '../Helpers/AsyncStorage';
 import React, {Component} from 'react';
 class MAIN extends Component {
   componentDidMount(): void {
-    debugger;
     getAsyncData('welcomePage').then(data => {
       if (data == '1') {
         getAsyncData('email').then(data => {

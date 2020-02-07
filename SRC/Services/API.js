@@ -1,11 +1,9 @@
 import axios from 'axios';
-const baseURL = 'http://localhost:3001';
 const API = (method = {GET: String}, url = {}, data = {}, headers = {}) => {
-  const newURL = baseURL + url;
   switch (method) {
     case 'GET': {
       return axios
-        .get(newURL, {})
+        .get(url, {})
         .then(response => {
           return Promise.resolve(response);
         })
@@ -15,7 +13,7 @@ const API = (method = {GET: String}, url = {}, data = {}, headers = {}) => {
     }
     case 'POST': {
       return axios
-        .post(newURL, data, headers)
+        .post(url, data, headers)
         .then(response => {
           return Promise.resolve(response);
         })
@@ -27,7 +25,7 @@ const API = (method = {GET: String}, url = {}, data = {}, headers = {}) => {
     }
     case 'DELETE': {
       return axios
-        .delete(newURL, {})
+        .delete(url, {})
         .then(response => {
           return Promise.resolve(response);
         })
@@ -37,7 +35,7 @@ const API = (method = {GET: String}, url = {}, data = {}, headers = {}) => {
     }
     case 'PATCH': {
       return axios
-        .patch(newURL, data)
+        .patch(url, data)
         .then(response => {
           return Promise.resolve(response);
         })
