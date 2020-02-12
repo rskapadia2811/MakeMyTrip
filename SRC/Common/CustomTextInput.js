@@ -6,7 +6,9 @@ import {fonts} from '../Helpers/variableHelper';
 const CustomTextInput = ({
   style = null,
   showLabel = true,
+  showBottomBorder = true,
   placeHolderText = 'Enter',
+  textInputFontFamily = fonts.latoRegular,
   labelText = placeHolderText,
   placeholderTextColor = 'grey',
   data = null,
@@ -18,6 +20,8 @@ const CustomTextInput = ({
   activeLabelColor = '#2A5FBA',
   deActiveLabelColor = 'grey',
   autoCapitalize = false,
+  showPlaceHolderOnFocus = false,
+  labelFontFamily = fonts.latoBold,
   labelFontSize = wp(3),
   autoFocus = false,
   secureTextEntry = false,
@@ -31,10 +35,11 @@ const CustomTextInput = ({
       style={{
         ...Styles.txtInputContainer,
         ...style,
-        borderBottomColor: focus
-          ? onFocusBottomBorderColor
-          : onBlurBottomBorderColor,
-        borderBottomWidth: focus ? 3 : 1,
+        borderBottomColor:
+          showBottomBorder && focus
+            ? onFocusBottomBorderColor
+            : onBlurBottomBorderColor,
+        borderBottomWidth: showBottomBorder ? (focus ? 3 : 1) : 0,
       }}>
       {showLabel ? (
         <Text
@@ -42,6 +47,7 @@ const CustomTextInput = ({
             ...Styles.enterMobileEmailText,
             display: show,
             fontSize: labelFontSize,
+            fontFamily: labelFontFamily,
             color: focus ? activeLabelColor : deActiveLabelColor,
           }}>
           {labelText}
@@ -52,10 +58,17 @@ const CustomTextInput = ({
       <TextInput
         style={{
           ...Styles.txtInput,
+          fontFamily: textInputFontFamily,
         }}
         autoFocus={autoFocus}
         autoCapitalize={autoCapitalize}
-        placeholder={show == 'flex' ? null : placeHolderText}
+        placeholder={
+          showPlaceHolderOnFocus
+            ? placeHolderText
+            : show == 'flex'
+            ? null
+            : placeHolderText
+        }
         returnKeyType={returnKeyType}
         placeholderTextColor={placeholderTextColor}
         maxLength={maxLength}
@@ -81,24 +94,6 @@ const CustomTextInput = ({
         {data}
       </TextInput>
     </View>
-    // <View
-    //   style={{
-    //     ...Styles.txtInputContainer,
-    //     ...style,
-    //     borderBottomColor: focus
-    //       ? onFocusBottomBorderColor
-    //       : onBlurBottomBorderColor,
-    //     borderBottomWidth: focus ? 3 : 1,
-    //   }}>
-    //   <TextInput
-    //     style={{...Styles.txtInput}}
-    //     placeholder={placeHolderText}
-    //     placeholderTextColor={placeholderTextColor}
-    //     onFocus={() => setFocus(true)}
-    //     onBlur={() => setFocus(false)}>
-    //     {data}
-    //   </TextInput>
-    // </View>
   );
 };
 const Styles = StyleSheet.create({
@@ -107,19 +102,15 @@ const Styles = StyleSheet.create({
     paddingBottom: wp(0.8),
     fontSize: wp(4.5),
     borderBottomWidth: 2.5,
-    // borderBottomColor: '#2A5FBA',
-    fontFamily: fonts.latoRegular,
     color: 'black',
   },
   txtInput: {
     marginTop: wp(5.5),
     fontSize: wp(4.5),
-    fontFamily: fonts.latoRegular,
     color: 'black',
   },
   enterMobileEmailText: {
     position: 'absolute',
-    fontFamily: fonts.latoBold,
   },
 });
 export default CustomTextInput;

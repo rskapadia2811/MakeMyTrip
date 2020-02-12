@@ -16,9 +16,13 @@ import {
 import {getAsyncData, setAsyncData} from '../../Helpers/AsyncStorage';
 import LinearGradient from 'react-native-linear-gradient';
 import GLOBAL from '../GLOBAL';
+import SplashScreen from 'react-native-splash-screen';
 class WelcomeSplashComponent extends Component {
   constructor() {
     super();
+  }
+  componentDidMount(): void {
+    SplashScreen.hide();
   }
 
   welcomeSplashData = [

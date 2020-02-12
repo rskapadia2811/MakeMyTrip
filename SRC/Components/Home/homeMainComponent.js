@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
 import {getAsyncData} from '../../Helpers/AsyncStorage';
 import GLOBAL from '../GLOBAL';
 // Components
@@ -8,7 +7,6 @@ import HomeHeaderComponent from './Components/homeHeaderComponent';
 import HomeBodyComponent from './Components/homeBodyComponent';
 class HomeMainComponent extends Component {
   componentDidMount(): void {
-    SplashScreen.hide();
     getAsyncData('email').then(data => console.log(data));
   }
 

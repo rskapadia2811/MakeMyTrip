@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import moment from 'moment';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -16,49 +17,109 @@ import {fonts} from '../../../../../Helpers/variableHelper';
 import CustomSeperator from '../../../../../Common/CustomSeperator';
 import CustomIcon from '../../../../../Common/CustomIcon';
 import DontMissDealComponent from './dontMissDealComponent';
+import CustomDateTimePicker from '../../../../../Common/CustomDateTimePicker';
 
-const FlightSearchOneWayComponent = ({navigation}) => {
+const FlightSearchOneWayComponent = ({
+  navigation,
+  oneWayFromCityData,
+  oneWayToCityData,
+}) => {
+  let oneWayFromCityData1 = oneWayFromCityData
+    ? oneWayFromCityData
+    : {city: 'New Delhi', cityCode: 'DEL'};
+  let oneWayToCityData1 = oneWayToCityData
+    ? oneWayToCityData
+    : {city: 'Mumbai', cityCode: 'BOM'};
+  const [depatureDate, setDepatureDate] = useState(new Date());
+  const [returnDate, setReturnDate] = useState(new Date());
+  const [openDepatureDTPicker, setOpenDepatureDTPicker] = useState(false);
+  const [openReturnDTPicker, setOpenReturnDTPicker] = useState(false);
+  const cDate = new Date();
+  const maxDepatureDate = new Date();
+  maxDepatureDate.setMonth(cDate.getMonth() + 8);
   return (
     <View>
       <View style={{...Styles.oneWayContainer}}>
         {/* From Container */}
         <TouchableOpacity
           style={{...Styles.oneSlotMainContainer}}
-          onPress={() => navigation.navigate('SearchAirportCityComponent')}>
+          onPress={() =>
+            navigation.navigate('SearchAirportCityComponent', {
+              wayData: 'oneWayFromCityData',
+            })
+          }>
           <Text style={{...Styles.labelText}}>FROM</Text>
           <Text style={{...Styles.cityName}}>
-            New Delhi <Text style={{...Styles.cityCode}}>DEL</Text>
+            {oneWayFromCityData1.city}
+            <Text style={{...Styles.cityCode}}>
+              &nbsp;{oneWayFromCityData1.cityCode}
+            </Text>
           </Text>
         </TouchableOpacity>
         <CustomSeperator />
         {/* To Container */}
-        <TouchableOpacity style={{...Styles.oneSlotMainContainer}}>
+        <TouchableOpacity
+          style={{...Styles.oneSlotMainContainer}}
+          onPress={() =>
+            navigation.navigate('SearchAirportCityComponent', {
+              wayData: 'oneWayToCityData',
+            })
+          }>
           <Text style={{...Styles.labelText}}>TO</Text>
           <Text style={{...Styles.cityName}}>
-            Mumbai <Text style={{...Styles.cityCode}}>BOM</Text>
+            {oneWayToCityData1.city}
+            <Text pstyle={{...Styles.cityCode}}>
+              &nbs;{oneWayToCityData1.cityCode}
+            </Text>
           </Text>
         </TouchableOpacity>
-        <View style={{...Styles.depatureReturnContainer}}>
-          <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity style={{...Styles.oneSlotMainContainer}}>
+        <View
+          style={{
+            ...Styles.depatureReturnContainer,
+            ...Styles.oneSlotMainContainer,
+          }}>
+          <View style={{flexDirection: 'row', flex: 1}}>
+            {/*Depature Date*/}
+            <CustomDateTimePicker
+              openDateTimePicker={setOpenDepatureDTPicker}
+              datefunction={openDepatureDTPicker}
+              minDate={new Date()}
+              maxDate={maxDepatureDate}
+              onChangeDateTime={dt => {
+                debugger;
+                setDepatureDate(dt);
+              }}
+            />
+            <TouchableOpacity
+              style={{flex: 1}}
+              onPress={() => setOpenDepatureDTPicker(true)}>
               <Text style={{...Styles.labelText}}>DEPATURE</Text>
               <View style={{flexDirection: 'row'}}>
                 <View>
-                  <Text style={{...Styles.dateText}}>08</Text>
+                  <Text style={{...Styles.dateText}}>
+                    {moment(depatureDate).format('DD')}
+                  </Text>
                 </View>
                 <View
                   style={{
-                    flexDirection: 'column',
-                    marginLeft: wp(2),
                     justifyContent: 'center',
                   }}>
-                  <Text style={{...Styles.monthYearText}}>Feb2020</Text>
-                  <Text style={{...Styles.dayText}}>Saturday</Text>
+                  <Text style={{...Styles.monthYearText}}>
+                    {moment(depatureDate).format('MMM')}{' '}
+                    {moment(depatureDate).format('YYYY')}
+                  </Text>
+                  <Text style={{...Styles.dayText}}>
+                    {moment(depatureDate).format('dddd')}
+                  </Text>
                 </View>
               </View>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={{...Styles.oneSlotMainContainer}}>
+
+          {/*RETURN*/}
+          <TouchableOpacity
+            style={{flex: 1}}
+            onPress={() => setOpenReturnDTPicker(true)}>
             <Text style={{...Styles.labelText}}>RETURN</Text>
             <Text style={{...Styles.bookRoundText}}>
               Book round trips{'\n'} for great savings
@@ -66,14 +127,19 @@ const FlightSearchOneWayComponent = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <CustomSeperator />
-        <View style={{...Styles.depatureReturnContainer}}>
-          <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity style={{...Styles.oneSlotMainContainer}}>
-              <Text style={{...Styles.labelText}}>TRAVELLERS</Text>
-              <Text style={{...Styles.travellerText}}>01</Text>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity style={{...Styles.oneSlotMainContainer}}>
+        <View
+          style={{
+            ...Styles.travellersCabinContainer,
+            ...Styles.oneSlotMainContainer,
+          }}>
+          <TouchableOpacity style={{flex: 1}}>
+            <Text style={{...Styles.labelText}}>TRAVELLERS</Text>
+            <Text style={{...Styles.travellerText}}>01</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              flex: 1,
+            }}>
             <Text style={{...Styles.labelText}}>CABIN CLASS</Text>
             <Text style={{...Styles.classText}}>Economy Class</Text>
           </TouchableOpacity>
@@ -160,9 +226,13 @@ const Styles = StyleSheet.create({
   depatureReturnContainer: {
     flexDirection: 'row',
   },
+  travellersCabinContainer: {
+    flexDirection: 'row',
+  },
   dateText: {
     color: '#000000',
     fontFamily: fonts.latoBold,
+    marginRight: wp(2),
     fontSize: wp(10),
   },
   monthYearText: {

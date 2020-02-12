@@ -110,7 +110,6 @@ const LoginSignUpBodyComponent = ({emailMobileCheck}) => {
       </View>
       <View
         style={{
-          ...Styles.referrelCode2Container,
           display: isReferal.length == 1 ? 'flex' : 'none',
         }}>
         <CustomTextInput

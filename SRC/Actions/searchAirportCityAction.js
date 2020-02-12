@@ -5,7 +5,7 @@ export const searchAirportCity = search => {
     let url = search_airports(search);
     return API('GET', url)
       .then(response => {
-        console.log(JSON.stringify(response.data));
+        return response.data.data.r;
       })
       .catch(error => {
         console.log(error);

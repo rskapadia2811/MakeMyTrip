@@ -6,11 +6,22 @@ import {
 } from '../../../../../Helpers/screenHelper';
 import FlightSearchOneWayComponent from './flightSearchOneWayComponent';
 
-const FlightSearchBodyComponent = ({navigation}) => {
+const FlightSearchBodyComponent = ({navigation, state, index}) => {
+    console.log(index);
   return (
     <ScrollView style={{zIndex: -1}}>
       <View style={{...Styles.flightSearchBodyMainContainer}}>
-        <FlightSearchOneWayComponent navigation={navigation} />
+        {index === 0 ? (
+          <FlightSearchOneWayComponent
+            navigation={navigation}
+            oneWayFromCityData={
+              state.oneWayFromCityData && state.oneWayFromCityData
+            }
+            oneWayToCityData={state.oneWayToCityData && state.oneWayToCityData}
+          />
+        ) : (
+          <></>
+        )}
       </View>
     </ScrollView>
   );

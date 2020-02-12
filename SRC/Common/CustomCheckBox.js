@@ -3,12 +3,6 @@ import {View} from 'react-native';
 import CustomIcon from './CustomIcon';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Checkbox from 'react-native-modest-checkbox';
-/*
-  horizontal  = {boolean}
-   checkBoxData = {Array}
-   initialData=DataBase Data\
-   onPress={data => {}}
-*/
 
 const CustomCheckBox = ({
   initialData, // REQUIRED

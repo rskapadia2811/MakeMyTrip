@@ -4,6 +4,12 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
+	<key>NSHumanReadableCopyright</key>
+	<string></string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>CFBundleDisplayName</key>
 	<string>MakeMyTrip</string>
 	<key>CFBundleExecutable</key>
@@ -37,8 +43,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Black.ttf</string>

@@ -6,7 +6,7 @@ import CustomIcon from '../../../../../Common/CustomIcon';
 import {fonts} from '../../../../../Helpers/variableHelper';
 import {widthPercentageToDP as wp} from '../../../../../Helpers/screenHelper';
 
-const FlightSearchHeaderComponent = ({navigation}) => {
+const FlightSearchHeaderComponent = ({navigation, onPress = () => {}}) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const wayData = [
     {
@@ -27,7 +27,10 @@ const FlightSearchHeaderComponent = ({navigation}) => {
   ];
   const wayRenderData = (item, index) => {
     return (
-      <TouchableOpacity onPress={() => setSelectedIndex(index)}>
+      <TouchableOpacity
+        onPress={() => {
+          setSelectedIndex(index), onPress(index);
+        }}>
         <View
           style={[
             selectedIndex === index
@@ -59,7 +62,7 @@ const FlightSearchHeaderComponent = ({navigation}) => {
   return (
     <View>
       <View style={{...Styles.flightSearchHeaderMainContainer}}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeComponent')}>
           <CustomIcon
             IconType={Ionicons}
             name={'ios-arrow-round-back'}
