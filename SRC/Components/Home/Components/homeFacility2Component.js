@@ -13,7 +13,8 @@ import {
   widthPercentageToDP as wp,
 } from '../../../Helpers/screenHelper';
 import CustomIcon from '../../../Common/CustomIcon';
-const HomeFacility2Component = () => {
+import {myColors} from '../../../Helpers/ColorHelper';
+const HomeFacility2Component = ({theme}) => {
   const FacilityData = [
     {
       id: 6,
@@ -62,7 +63,13 @@ const HomeFacility2Component = () => {
             color={homeHeaderIcon.color}
             style={Styles.iconStyle}
           />
-          <Text style={Styles.facilityName}>{item.name}</Text>
+          <Text
+            style={{
+              ...Styles.facilityName,
+              color: myColors.primaryTextColor[theme],
+            }}>
+            {item.name}
+          </Text>
         </View>
       </View>
     );
@@ -88,8 +95,8 @@ const Styles = StyleSheet.create({
   },
   FacilityRow: {
     flexDirection: 'row',
-    justifyContent:'center',
-    alignItems:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   iconStyle: {
     padding: 3,

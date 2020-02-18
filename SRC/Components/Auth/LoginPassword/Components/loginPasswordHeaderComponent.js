@@ -1,4 +1,5 @@
 import React from 'react';
+import {myColors} from '../../../../Helpers/ColorHelper';
 import {
   widthPercentageToDP as wp,
 } from '../../../../Helpers/screenHelper';
@@ -12,7 +13,7 @@ const LoginPasswordHeaderComponent = ({navigation}) => {
         <CustomIcon
           IconType={Ionicons}
           name={'ios-arrow-round-back'}
-          color={'#858585'}
+          color={myColors.lightGrey}
           size={wp(10)}
           style={Styles.backIcon}
         />

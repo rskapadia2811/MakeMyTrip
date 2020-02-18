@@ -8,13 +8,13 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
+import {myColors} from '../../../../../Helpers/ColorHelper';
 import {fonts} from '../../../../../Helpers/variableHelper';
-const screenWidth = Dimensions.get('window').width;
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from '../../../../../Helpers/screenHelper';
-const DontMissDealComponent = () => {
+const DontMissDealComponent = ({theme}) => {
   const DealData = [
     {
       id: 1,
@@ -22,7 +22,6 @@ const DontMissDealComponent = () => {
       info:
         'Flat 30% Instant Discount* On Domestic and International Activities',
       bankLogo: require('../../../../../Assets/Images/HotDeal/Bank/hsbcBank.png'),
-      gradiantColor: ['#DA4453', '#89216B'],
     },
     {
       id: 2,
@@ -30,7 +29,6 @@ const DontMissDealComponent = () => {
       info:
         'Flat 30% Instant Discount* On Domestic and1 International Activities',
       bankLogo: require('../../../../../Assets/Images/HotDeal/Bank/hsbcBank.png'),
-      gradiantColor: ['#a8c0ff', '#3f2b96'],
     },
     {
       id: 3,
@@ -38,7 +36,6 @@ const DontMissDealComponent = () => {
       info:
         'Flat 30% Instant Discount* On Domestic and1 International Activities',
       bankLogo: require('../../../../../Assets/Images/HotDeal/Bank/hsbcBank.png'),
-      gradiantColor: ['#333333', '#dd1818'],
     },
     {
       id: 4,
@@ -46,7 +43,6 @@ const DontMissDealComponent = () => {
       info:
         'Flat 30% Instant Discount* On Domestic and1 International Activities',
       bankLogo: require('../../../../../Assets/Images/HotDeal/Bank/hsbcBank.png'),
-      gradiantColor: ['#40E0D0', '#FF8C00', '#FF0080'],
     },
     {
       id: 5,
@@ -63,12 +59,28 @@ const DontMissDealComponent = () => {
           paddingLeft: index === 0 ? wp(11) : wp(0),
           paddingRight: index === DealData.length - 1 ? wp(11) : wp(0),
         }}>
-        <View style={Styles.betweenDivContainer}>
+        <View
+          style={{
+            ...Styles.betweenDivContainer,
+            backgroundColor: myColors.primaryBGColor[theme],
+          }}>
           <View style={Styles.categoryTopLeftContainer}>
-            <View style={Styles.categoryTopLeftLine} />
-            <Text style={Styles.categoryText}>{item.category}</Text>
+            <View style={{...Styles.categoryTopLeftLine}} />
+            <Text
+              style={{
+                ...Styles.categoryText,
+                color: myColors.primaryTextColor[theme],
+              }}>
+              {item.category}
+            </Text>
           </View>
-          <Text style={Styles.whatAreYouText}>{item.info}</Text>
+          <Text
+            style={{
+              ...Styles.whatAreYouText,
+              color: myColors.primaryTextColor[theme],
+            }}>
+            {item.info}
+          </Text>
         </View>
       </View>
     );
@@ -99,7 +111,7 @@ const DontMissDealComponent = () => {
 const Styles = StyleSheet.create({
   hotDealMainContainer: {
     height: hp(15),
-    backgroundColor: '#FFFFFF',
+    backgroundColor: myColors.white,
   },
   hotDealContainer: {
     height: hp(5),
@@ -110,7 +122,6 @@ const Styles = StyleSheet.create({
   betweenDivContainer: {
     width: wp(70),
     marginRight: hp(2.5),
-    backgroundColor: '#FFFFFF',
     alignSelf: 'center',
     borderRadius: 5,
     paddingLeft: wp(2.5),
@@ -129,7 +140,7 @@ const Styles = StyleSheet.create({
     fontFamily: fonts.latoRegular,
   },
   checkAvailablityContainer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: myColors.white,
     padding: hp(1.0),
     alignSelf: 'flex-end',
     paddingLeft: wp(6),
@@ -145,14 +156,14 @@ const Styles = StyleSheet.create({
   },
   checkEligiblityText: {
     fontSize: hp(1.5),
-    color: '#59A0F2',
+    color: myColors.skyBlue,
     fontFamily: fonts.latoBlack,
   },
   categoryTopLeftContainer: {
     flexDirection: 'row',
   },
   categoryTopLeftLine: {
-    backgroundColor: '#065af3',
+    backgroundColor: myColors.lightBlue,
     marginLeft: wp(-2.5),
     width: wp(0.8),
     height: wp(3.5),

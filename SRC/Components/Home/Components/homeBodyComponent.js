@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {ScrollView, View, StyleSheet, Animated} from 'react-native';
+import {myColors} from '../../../Helpers/ColorHelper';
 import {heightPercentageToDP as hp} from '../../../Helpers/screenHelper';
 // Components
 import HomeFacility1Component from './homeFacility1Component';
@@ -23,7 +24,10 @@ class HomeBodyComponent extends Component {
             {
               backgroundColor: this.scroll.interpolate({
                 inputRange: [0, 100],
-                outputRange: ['#FFFFFF', '#EBF7FE'],
+                outputRange:
+                  this.props.theme === 'light'
+                    ? [myColors.white, myColors.lightSky]
+                    : [myColors.primaryBGColor[this.props.theme], 'black'],
               }),
               elevation: this.scroll.interpolate({
                 inputRange: [0, 100],
@@ -31,11 +35,22 @@ class HomeBodyComponent extends Component {
               }),
               shadowColor: this.scroll.interpolate({
                 inputRange: [0, 100],
-                outputRange: ['#FFFFFF', '#000000'],
+                outputRange: [
+                  this.props.theme === 'dark' ? myColors.black : myColors.white,
+                  this.props.theme === 'dark' ? myColors.white : myColors.black,
+                ],
+              }),
+              shadowOpacity: this.scroll.interpolate({
+                inputRange: [0, 100],
+                outputRange: [0, 0.8],
               }),
             },
           ]}>
-          <HomeFacility1Component navigation={this.props.navigation} />
+          <HomeFacility1Component
+            theme={this.props.theme}
+            navigation={this.props.navigation}
+            fu={() => this.forceUpdate()}
+          />
         </Animated.View>
         <ScrollView
           scrollEventThrottle={1}
@@ -47,11 +62,11 @@ class HomeBodyComponent extends Component {
             }
           }}
           style={{height: hp(100)}}>
-          <HomeFacility2Component />
+          <HomeFacility2Component theme={this.props.theme} />
           <HomeFindStatusComponent />
           <HomeGiftAndDealComponent />
-          <HomeTripMoneyComponent />
-          <HomeHotDealsComponent />
+          <HomeTripMoneyComponent theme={this.props.theme} />
+          <HomeHotDealsComponent theme={this.props.theme} />
           <HomeFindStatusComponent />
           <HomeGiftAndDealComponent />
           <HomeFacility2Component />
@@ -73,8 +88,6 @@ const Styles = StyleSheet.create({
     borderRadius: 15,
     margin: 10,
     shadowOffset: {width: 0, height: 0},
-
-    shadowOpacity: 0.8,
     shadowRadius: 3,
   },
 });

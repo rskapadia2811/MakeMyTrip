@@ -34,8 +34,6 @@ export const registerUser = (data, registerCallback) => {
   return () => {
     return API('POST', baseURL + '/users/registerUser', data)
       .then(response => {
-        console.log(data);
-        console.log(response.data.status);
         if (response.data.status === 200) {
           setAsyncData('email', data.email);
           registerCallback('HomeComponent');

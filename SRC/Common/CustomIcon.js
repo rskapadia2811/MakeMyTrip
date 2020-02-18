@@ -1,9 +1,10 @@
 import React from 'react';
+import {myColors} from '../Helpers/ColorHelper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 const CustomIcon = ({
   name = 'eye',
   IconType = AntDesign,
-  color = '#000000',
+  color = myColors.black,
   size = 40,
   style = null,
 }) => {

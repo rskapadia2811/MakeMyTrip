@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
-
+import {View, StyleSheet} from 'react-native';
+import {myColors} from '../../../Helpers/ColorHelper';
 // Component
 import LoginOTPHeaderComponent from './Components/loginOTPHeaderComponent';
 import LoginOTPBodyComponent from './Components/loginOTPBodyComponent';
@@ -10,6 +10,7 @@ import LoginOTPFooterComponent from './Components/loginOTPFooterComponent';
 // Action
 import {loginWithEmail} from '../../../Actions/authAction';
 import GLOBAL from '../../GLOBAL';
+
 export class LoginOTPMainComponent extends Component {
   loginPasswordCallback = component => {
     this.props.navigation.navigate(component);
@@ -49,6 +50,7 @@ export class LoginOTPMainComponent extends Component {
           />
         </View>
         <LoginOTPFooterComponent
+          theme={this.props.theme}
           visibleButton={this.state.visibleButton}
           onPress={() => {
             this.props.navigation.navigate('LoginPasswordComponent', {
@@ -67,13 +69,20 @@ const Styles = StyleSheet.create({
   },
   loginSignupMainContainer: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: myColors.white,
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    theme: state.ThemeReducer.theme,
+  };
+};
 const mapDispatchToProps = {
   loginWithEmail,
 };
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(LoginOTPMainComponent);

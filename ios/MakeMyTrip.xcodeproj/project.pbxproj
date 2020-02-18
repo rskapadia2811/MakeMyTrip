@@ -22,6 +22,7 @@
 		60D1CCB18FA04BD887B06C2D /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B09D85BE6D343CAA0B43B8C /* Lato-Thin.ttf */; };
 		62A0DBF19C174F349A1D87F8 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E38D78D93D744E6989450F3 /* Lato-BlackItalic.ttf */; };
 		82EB4AA151AC4B71BC78232F /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E427EDEBA1EE48D3876CDB91 /* Lato-Bold.ttf */; };
+		8658AF3423F568F800337882 /* MyImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8658AF3323F568F800337882 /* MyImageView.m */; };
 		867D75EC23DEB37D004E7518 /* mmtLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 867D75EB23DEB37D004E7518 /* mmtLogo.png */; };
 		8975D09FBC3EB3A29753C8AB /* libPods-MakeMyTrip-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C90EBD7C54CB9A86C19C9108 /* libPods-MakeMyTrip-tvOS.a */; };
 		9EA6E6895D4E5F7BF9262334 /* libPods-MakeMyTripTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A57EE894D52E38BC5715F9F /* libPods-MakeMyTripTests.a */; };
@@ -47,6 +48,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "MakeMyTrip-tvOS";
+		};
+		8614E9C623F7B47300DC92C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8614E9C223F7B47300DC92C1 /* RCTRestart.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3245CDED1BFEE35C00EABF68;
+			remoteInfo = RCTRestart;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -75,6 +83,9 @@
 		6AE3E43F53D34573BAAC6302 /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../SRC/Assets/Fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		6F2240C7043E4C4A8ABD0A55 /* Lato-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Black.ttf"; path = "../SRC/Assets/Fonts/Lato-Black.ttf"; sourceTree = "<group>"; };
 		7AE25FDE50C8AC39798040A2 /* Pods-MakeMyTrip-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeMyTrip-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MakeMyTrip-tvOS/Pods-MakeMyTrip-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		8614E9C223F7B47300DC92C1 /* RCTRestart.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTRestart.xcodeproj; path = "../node_modules/react-native-restart/ios/RCTRestart.xcodeproj"; sourceTree = "<group>"; };
+		8658AF3223F568F800337882 /* MyImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MyImageView.h; path = MakeMyTrip/MyImageView.h; sourceTree = "<group>"; };
+		8658AF3323F568F800337882 /* MyImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MyImageView.m; path = MakeMyTrip/MyImageView.m; sourceTree = "<group>"; };
 		867D75EB23DEB37D004E7518 /* mmtLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mmtLogo.png; sourceTree = "<group>"; };
 		8798F79F8FF02CACA922091D /* libPods-MakeMyTrip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MakeMyTrip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ACCF96B1C3E40448EF0DCDF /* Lato-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Italic.ttf"; path = "../SRC/Assets/Fonts/Lato-Italic.ttf"; sourceTree = "<group>"; };
@@ -155,6 +166,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				8658AF3223F568F800337882 /* MyImageView.h */,
+				8658AF3323F568F800337882 /* MyImageView.m */,
 			);
 			name = MakeMyTrip;
 			sourceTree = "<group>";
@@ -190,6 +203,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8614E9C223F7B47300DC92C1 /* RCTRestart.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -217,6 +231,14 @@
 				00E356EE1AD99517003FC87E /* MakeMyTripTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* MakeMyTrip-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* MakeMyTrip-tvOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8614E9C323F7B47300DC92C1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8614E9C723F7B47300DC92C1 /* libRCTRestart.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -364,6 +386,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8614E9C323F7B47300DC92C1 /* Products */;
+					ProjectRef = 8614E9C223F7B47300DC92C1 /* RCTRestart.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* MakeMyTrip */,
@@ -373,6 +401,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8614E9C723F7B47300DC92C1 /* libRCTRestart.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTRestart.a;
+			remoteRef = 8614E9C623F7B47300DC92C1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
@@ -638,6 +676,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				8658AF3423F568F800337882 /* MyImageView.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

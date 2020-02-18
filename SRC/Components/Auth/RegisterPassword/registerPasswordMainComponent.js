@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {myColors} from '../../../Helpers/ColorHelper';
+import GLOBAL from '../../GLOBAL';
+
 // Component
 import RegisterPasswordHeaderComponent from './Components/registerPasswordHeaderComponent';
 import RegisterPasswordBodyComponent from './Components/registerPasswordBodyComponent';
 import RegisterPasswordFooterComponent from './Components/registerPasswordFooterComponent';
-import GLOBAL from '../../GLOBAL';
 
 // Action
 export class RegisterPasswordMainComponent extends Component {
@@ -48,6 +50,7 @@ export class RegisterPasswordMainComponent extends Component {
           />
         </View>
         <RegisterPasswordFooterComponent
+          theme={this.props.theme}
           visibleButton={this.state.visibleButton}
           onPress={() => this.passwordCallback(this.prevData)}
         />
@@ -62,11 +65,14 @@ const Styles = StyleSheet.create({
   },
   loginSignupMainContainer: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: myColors.white,
   },
 });
 
+const mapStateToProps = state => {
+  return {theme: state.ThemeReducer.theme};
+};
 export default connect(
-  null,
+  mapStateToProps,
   null,
 )(RegisterPasswordMainComponent);

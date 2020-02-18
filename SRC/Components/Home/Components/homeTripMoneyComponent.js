@@ -2,14 +2,22 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {fonts} from '../../../Helpers/variableHelper';
 import LinearGradient from 'react-native-linear-gradient';
+import {myColors} from '../../../Helpers/ColorHelper';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from '../../../Helpers/screenHelper';
-const HomeTripMoneyComponent = () => {
+const HomeTripMoneyComponent = ({theme}) => {
+  debugger;
   return (
-    <View style={Styles.tripMoneyMainContainer}>
-      <View style={Styles.tripMoneyContainer}>
+    <View
+      style={{
+        ...Styles.tripMoneyMainContainer,
+        backgroundColor: myColors.primaryBGColor[theme],
+      }}>
+      <LinearGradient
+        colors={myColors.gradiantColor3[theme]}
+        style={Styles.tripMoneyContainer}>
         {/*Trip Money Text Container*/}
         <View style={Styles.tripMoneyTextMainContainer}>
           <View style={Styles.rsRoundOuterContainer}>
@@ -31,13 +39,21 @@ const HomeTripMoneyComponent = () => {
             <Text style={Styles.lakhRsText}>&#8377;1,00,000</Text>
           </Text>
         </View>
-        <View style={Styles.betweenDivContainer}>
-          <Text style={Styles.whatAreYouText}>
-            What are you waiting for? Get your limit now!
-          </Text>
-          <View style={Styles.checkAvailablityContainer}>
-            <Text style={Styles.checkEligiblityText}>Check Eligiblity</Text>
-          </View>
+      </LinearGradient>
+      <View
+        style={{
+          ...Styles.betweenDivContainer,
+          backgroundColor: myColors.primaryBGColor[theme],
+        }}>
+        <Text
+          style={{
+            ...Styles.whatAreYouText,
+            color: myColors.primaryTextColor[theme],
+          }}>
+          What are you waiting for? Get your limit now!
+        </Text>
+        <View style={Styles.checkAvailablityContainer}>
+          <Text style={Styles.checkEligiblityText}>Check Eligiblity</Text>
         </View>
       </View>
     </View>
@@ -46,11 +62,10 @@ const HomeTripMoneyComponent = () => {
 
 const Styles = StyleSheet.create({
   tripMoneyMainContainer: {
-    backgroundColor: '#FFFFFF',
+    marginTop: wp(2),
     height: hp(40),
   },
   tripMoneyContainer: {
-    backgroundColor: '#1e1058',
     height: hp(25),
   },
   rsRoundOuterContainer: {
@@ -70,10 +85,10 @@ const Styles = StyleSheet.create({
     width: wp(10),
     borderRadius: 20,
     borderWidth: 3,
-    borderColor: '#1E1058',
+    borderColor: myColors.royalBlue,
   },
   rsText: {
-    color: '#1E1058',
+    color: myColors.royalBlue,
     fontSize: hp(2.5),
   },
   tripMoneyTextMainContainer: {
@@ -105,12 +120,11 @@ const Styles = StyleSheet.create({
     fontFamily: fonts.latoBold,
   },
   lakhRsText: {
-    color: '#BE9731',
+    color: myColors.ukkerYellow,
   },
   betweenDivContainer: {
     width: wp(80),
     height: hp(10),
-    backgroundColor: 'white',
     position: 'absolute',
     alignSelf: 'center',
     borderRadius: 5,
@@ -122,7 +136,7 @@ const Styles = StyleSheet.create({
     elevation: 10,
     shadowOffset: {x: 0, y: 0},
     padding: 7,
-    bottom: hp(-6),
+    bottom: hp(9),
   },
   whatAreYouText: {
     fontSize: hp(1.5),
@@ -130,7 +144,7 @@ const Styles = StyleSheet.create({
   },
   checkAvailablityContainer: {
     position: 'absolute',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: myColors.white,
     padding: hp(1.0),
     paddingLeft: wp(6),
     paddingRight: wp(6),
@@ -147,7 +161,7 @@ const Styles = StyleSheet.create({
   },
   checkEligiblityText: {
     fontSize: hp(1.5),
-    color: '#59A0F2',
+    color: myColors.skyBlue,
     fontFamily: fonts.latoBlack,
   },
 });

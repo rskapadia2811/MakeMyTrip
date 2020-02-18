@@ -1,6 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
-const CustomSeperator = ({borderWidth = 1.5, borderColor = 'lightgrey'}) => {
+import {myColors} from '../Helpers/ColorHelper';
+const CustomSeperator = ({borderWidth = 0.5, borderColor = myColors.grey}) => {
   return (
     <View
       style={{

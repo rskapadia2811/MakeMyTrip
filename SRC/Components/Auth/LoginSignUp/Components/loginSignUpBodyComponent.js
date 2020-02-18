@@ -3,11 +3,9 @@ import {widthPercentageToDP as wp} from '../../../../Helpers/screenHelper';
 import {
   View,
   Image,
-  Animated,
   StyleSheet,
   TouchableOpacity,
   Text,
-  TextInput,
 } from 'react-native';
 import CustomCheckBox from '../../../../Common/CustomCheckBox';
 import CustomTextInput from '../../../../Common/CustomTextInput';
@@ -16,7 +14,8 @@ import CustomIcon from '../../../../Common/CustomIcon';
 import {fonts} from '../../../../Helpers/variableHelper';
 import LinearGradient from 'react-native-linear-gradient';
 import {emailValidation, isNumber} from '../../../../Helpers/validationHelper';
-const LoginSignUpBodyComponent = ({emailMobileCheck}) => {
+import {myColors} from '../../../../Helpers/ColorHelper';
+const LoginSignUpBodyComponent = ({emailMobileCheck, theme}) => {
   const forceUpdate = reRender();
   let [isMobileNumber, setIsMobileNumber] = useState('none');
   const [visibleButton, setVisibleButton] = useState(false);
@@ -24,8 +23,18 @@ const LoginSignUpBodyComponent = ({emailMobileCheck}) => {
   const [mobileEmail, setMobileEmail] = useState('');
   return (
     <View style={Styles.loginSignUpBodyContainer}>
-      <Text style={Styles.loginCreateAccountText}>Login/Create Account</Text>
-      <Text style={{...Styles.toViewOrEditProfileText}}>
+      <Text
+        style={{
+          ...Styles.loginCreateAccountText,
+          color: myColors.primaryTextColor[theme],
+        }}>
+        Login/Create Account
+      </Text>
+      <Text
+        style={{
+          ...Styles.toViewOrEditProfileText,
+          color: myColors.primaryTextColor[theme],
+        }}>
         to view or edit your profile
       </Text>
       <View style={{...Styles.textInputContainer}}>
@@ -38,7 +47,13 @@ const LoginSignUpBodyComponent = ({emailMobileCheck}) => {
             source={require('../../../../Assets/Images/Flags/indiaFlag.png')}
             style={{height: wp(5), width: wp(7)}}
           />
-          <Text style={{...Styles.plus91Text}}>+91</Text>
+          <Text
+            style={{
+              ...Styles.plus91Text,
+              color: myColors.primaryTextColor[theme],
+            }}>
+            +91
+          </Text>
         </View>
         <View>
           <CustomTextInput
@@ -82,7 +97,9 @@ const LoginSignUpBodyComponent = ({emailMobileCheck}) => {
           }}>
           <LinearGradient
             colors={
-              visibleButton ? ['#065af3', '#53b2fe'] : ['#B4B4B4', '#B4B4B4']
+              visibleButton
+                ? myColors.primaryGradiantColor[theme]
+                : myColors.gradiantColor2[theme]
             }
             start={{x: 1, y: 0}}
             end={{x: 0, y: 1}}
@@ -90,7 +107,7 @@ const LoginSignUpBodyComponent = ({emailMobileCheck}) => {
             <CustomIcon
               IconType={AntDesign}
               name={'arrowright'}
-              color={'#FFFFFF'}
+              color={myColors.white}
               size={wp(7)}
             />
           </LinearGradient>
@@ -103,8 +120,8 @@ const LoginSignUpBodyComponent = ({emailMobileCheck}) => {
           onPress={() => {
             forceUpdate();
           }}
-          openCheckBoxStyle={{color: '#B4B4B4', size: 27}}
-          selectedCheckBoxStyle={{color: '#2A5FBA', size: 27}}
+          openCheckBoxStyle={{color: myColors.lightGrey, size: 27}}
+          selectedCheckBoxStyle={{color: myColors.lightBlue, size: 27}}
           labelStyle={{fontSize: 15}}
         />
       </View>
@@ -117,8 +134,18 @@ const LoginSignUpBodyComponent = ({emailMobileCheck}) => {
           showLabel={false}
           placeHolderText={'Referrel Code'}
         />
-        <TouchableOpacity style={{...Styles.btnApply}}>
-          <Text style={{...Styles.applyText}}>APPLY</Text>
+        <TouchableOpacity
+          style={{
+            ...Styles.btnApply,
+            backgroundColor: myColors.primaryBGColor[theme],
+          }}>
+          <Text
+            style={{
+              ...Styles.applyText,
+              color: theme === 'dark' ? myColors.darkPink : myColors.lightBlue,
+            }}>
+            APPLY
+          </Text>
         </TouchableOpacity>
       </View>
       <View>
@@ -157,7 +184,6 @@ const Styles = StyleSheet.create({
     marginLeft: wp(3),
   },
   loginCreateAccountText: {
-    color: 'black',
     fontSize: wp(6),
     fontFamily: fonts.latoBold,
   },
@@ -169,7 +195,7 @@ const Styles = StyleSheet.create({
   },
   countrySelectionContainer: {
     flexDirection: 'row',
-    padding: wp(2),
+    padding: wp(1.8),
     justifyContent: 'center',
     alignItems: 'flex-end',
   },
@@ -182,21 +208,14 @@ const Styles = StyleSheet.create({
     marginTop: wp(5.5),
     flexDirection: 'row',
   },
-  enterMobileEmailText: {
-    position: 'absolute',
-    color: '#2A5FBA',
-    fontFamily: fonts.latoBold,
-    fontSize: wp(3),
-  },
   btnApply: {
     position: 'absolute',
     alignSelf: 'flex-end',
-    backgroundColor: '#FFFFFF',
     padding: wp(3),
   },
   applyText: {
     fontSize: wp(4),
-    color: '#2A5FBA',
+
     fontFamily: fonts.latoBold,
   },
   goBtnContainer: {
@@ -215,7 +234,7 @@ const Styles = StyleSheet.create({
   orConnectText: {
     fontSize: wp(3),
     fontFamily: fonts.latoBold,
-    color: '#B4B4B4',
+    color: myColors.lightGrey,
     marginTop: wp(8),
   },
   socialMediaConnectContainer: {
@@ -225,8 +244,8 @@ const Styles = StyleSheet.create({
     marginTop: wp(6),
   },
   singleSocialMediaConnectContainer: {
+    backgroundColor: myColors.white,
     flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
     padding: wp(3),
     width: wp(40),
     borderRadius: 20,

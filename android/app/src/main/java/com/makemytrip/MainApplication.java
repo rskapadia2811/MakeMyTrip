@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.geolocation.GeolocationPackage;
+import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
@@ -33,6 +35,8 @@ public class MainApplication extends Application implements ReactApplication {
           protected List<ReactPackage> getPackages() {
               return Arrays.<ReactPackage>asList(
                       new MainReactPackage(),
+            new GeolocationPackage(),
+            new ReactNativeRestartPackage(),
             new AsyncStoragePackage(),
                       new LinearGradientPackage(),
             new SafeAreaContextPackage(),

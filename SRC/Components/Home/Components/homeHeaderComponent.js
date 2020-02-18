@@ -6,7 +6,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from '../../../Helpers/screenHelper';
-const HomeHeaderComponent = ({navigation}) => {
+import {myColors} from '../../../Helpers/ColorHelper';
+const HomeHeaderComponent = ({theme, navigation}) => {
   {
     /*Top Header Container*/
   }
@@ -17,7 +18,11 @@ const HomeHeaderComponent = ({navigation}) => {
           setAsyncData('email', '');
           navigation.navigate('LoginSignUpComponent');
         }}>
-        <Text style={Styles.topBookYourTravelText}>
+        <Text
+          style={{
+            ...Styles.topBookYourTravelText,
+            color: myColors.primaryTextColor[theme],
+          }}>
           {texts.homeHeaderTopText}
         </Text>
       </TouchableOpacity>
@@ -35,7 +40,6 @@ const Styles = StyleSheet.create({
   },
   topBookYourTravelText: {
     fontFamily: fonts.latoLight,
-    fontSize: hp(3),
-    color: color.topHomeHeaderTextColor,
+    fontSize: wp(6),
   },
 });

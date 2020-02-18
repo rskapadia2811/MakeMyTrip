@@ -1,5 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react';
 import DatePicker from 'react-native-datepicker';
+import {myColors} from '../Helpers/ColorHelper';
 let dropPicker;
 
 const CustomDateTimePicker = ({
@@ -20,7 +21,6 @@ const CustomDateTimePicker = ({
       openDateTimePicker(() => dropPicker.current.onPressDate());
     }
   }, [datefunction, openDateTimePicker]);
-  debugger;
   return (
     <DatePicker
       ref={dropPicker}

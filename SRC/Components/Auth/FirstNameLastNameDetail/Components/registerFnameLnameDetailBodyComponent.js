@@ -14,6 +14,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import CustomIcon from '../../../../Common/CustomIcon';
 import {fonts} from '../../../../Helpers/variableHelper';
 import LinearGradient from 'react-native-linear-gradient';
+import {myColors} from '../../../../Helpers/ColorHelper';
 import {
   emailValidation,
   isNumber,
@@ -163,7 +164,7 @@ const Styles = StyleSheet.create({
   },
   enterMobileEmailText: {
     position: 'absolute',
-    color: '#2A5FBA',
+    color: myColors.lightBlue,
     fontFamily: fonts.latoBold,
     fontSize: wp(3),
   },
@@ -171,18 +172,18 @@ const Styles = StyleSheet.create({
     width: wp(90),
     marginTop: wp(5.5),
     fontSize: wp(4.5),
-    borderBottomColor: '#2A5FBA',
+    borderBottomColor: myColors.lightBlue,
     fontFamily: fonts.latoRegular,
   },
   btnApply: {
     position: 'absolute',
     alignSelf: 'flex-end',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: myColors.white,
     padding: wp(3),
   },
   applyText: {
     fontSize: wp(4),
-    color: '#2A5FBA',
+    color: myColors.lightBlue,
     fontFamily: fonts.latoBold,
   },
 
@@ -193,7 +194,7 @@ const Styles = StyleSheet.create({
   orConnectText: {
     fontSize: wp(3),
     fontFamily: fonts.latoBold,
-    color: '#B4B4B4',
+    color: myColors.lightGrey,
     marginTop: wp(8),
   },
   socialMediaConnectContainer: {
@@ -204,7 +205,7 @@ const Styles = StyleSheet.create({
   },
   singleSocialMediaConnectContainer: {
     flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: myColors.white,
     padding: wp(3),
     width: wp(40),
     borderRadius: 20,

@@ -1,5 +1,6 @@
 import React from 'react';
 import {widthPercentageToDP as wp} from '../../../../Helpers/screenHelper';
+import {myColors} from '../../../../Helpers/ColorHelper';
 import {
   View,
   KeyboardAvoidingView,
@@ -11,6 +12,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 const LoginPasswordFooterComponent = ({
   visibleButton = false,
+  theme,
   onPress = () => {},
 }) => {
   return (
@@ -19,7 +21,9 @@ const LoginPasswordFooterComponent = ({
         <TouchableOpacity disabled={!visibleButton} onPress={() => onPress()}>
           <LinearGradient
             colors={
-              visibleButton ? ['#065af3', '#53b2fe'] : ['#B4B4B4', '#B4B4B4']
+              visibleButton
+                ? myColors.primaryGradiantColor[theme]
+                : myColors.gradiantColor2[theme]
             }
             start={{x: 1, y: 0}}
             end={{x: 0, y: 1}}
@@ -27,7 +31,7 @@ const LoginPasswordFooterComponent = ({
             <CustomIcon
               IconType={AntDesign}
               name={'arrowright'}
-              color={'#FFFFFF'}
+              color={myColors.white}
               size={wp(7)}
             />
           </LinearGradient>

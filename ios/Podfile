@@ -45,6 +45,10 @@ target 'MakeMyTrip' do
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
 
+  pod 'RCTRestart', :path => '../node_modules/react-native-restart/ios'
+
+  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+
   target 'MakeMyTripTests' do
     inherit! :search_paths
     # Pods for testing

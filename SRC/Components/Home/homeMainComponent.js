@@ -1,21 +1,28 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
-import {getAsyncData} from '../../Helpers/AsyncStorage';
+import {connect} from 'react-redux';
 import GLOBAL from '../GLOBAL';
 // Components
 import HomeHeaderComponent from './Components/homeHeaderComponent';
 import HomeBodyComponent from './Components/homeBodyComponent';
+import {myColors} from '../../Helpers/ColorHelper';
 class HomeMainComponent extends Component {
-  componentDidMount(): void {
-    getAsyncData('email').then(data => console.log(data));
-  }
-
   render() {
     return (
       <GLOBAL>
-        <View style={Styles.mainContainer}>
-          <HomeHeaderComponent navigation={this.props.navigation} />
-          <HomeBodyComponent navigation={this.props.navigation} />
+        <View
+          style={{
+            ...Styles.mainContainer,
+            backgroundColor: myColors.primaryBGColor[this.props.theme],
+          }}>
+          <HomeHeaderComponent
+            navigation={this.props.navigation}
+            theme={this.props.theme}
+          />
+          <HomeBodyComponent
+            theme={this.props.theme}
+            navigation={this.props.navigation}
+          />
         </View>
       </GLOBAL>
     );
@@ -24,10 +31,17 @@ class HomeMainComponent extends Component {
 
 const Styles = StyleSheet.create({
   mainContainer: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'column',
-    backgroundColor: '#FFFFFF',
   },
 });
 
-export default HomeMainComponent;
+const mapStateToProps = state => {
+  return {
+    theme: state.ThemeReducer.theme,
+  };
+};
+export default connect(
+  mapStateToProps,
+  null,
+)(HomeMainComponent);

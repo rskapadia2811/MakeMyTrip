@@ -74,7 +74,6 @@ const customTab = (navigation, focused, TintColor) => {
     </View>
   );
 };
-const bottomSpecificComponent = ['HomeComponent'];
 const BottomTabNavigator = createBottomTabNavigator(
   {
     HomeStackNavigator,
@@ -87,8 +86,6 @@ const BottomTabNavigator = createBottomTabNavigator(
     defaultNavigationOptions: ({navigation}) => ({
       tabBarIcon: ({focused, tintColor}) =>
         customTab(navigation, focused, tintColor),
-      // tabBarVisible:
-      //   navigation.state.routeName == HelpStackNavigator ? false : true,
     }),
 
     tabBarOptions: {

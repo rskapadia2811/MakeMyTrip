@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, ImageBackground, FlatList} from 'react-native';
+import {myColors} from '../../../Helpers/ColorHelper';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,

@@ -8,12 +8,14 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import {connect} from 'react-redux';
+import {myColors} from '../../Helpers/ColorHelper';
 import {fonts} from '../../Helpers/variableHelper';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from '../../Helpers/screenHelper';
-import {getAsyncData, setAsyncData} from '../../Helpers/AsyncStorage';
+import {setAsyncData} from '../../Helpers/AsyncStorage';
 import LinearGradient from 'react-native-linear-gradient';
 import GLOBAL from '../GLOBAL';
 import SplashScreen from 'react-native-splash-screen';
@@ -65,13 +67,8 @@ class WelcomeSplashComponent extends Component {
                 style={Styles.imageDesign}
               />
               <Text style={Styles.mmtText}>MakeMyTrip</Text>
-            </View>
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
               <TouchableOpacity
+                style={{marginTop: wp(5)}}
                 onPress={() => {
                   setAsyncData('welcomePage', '1');
                   this.props.navigation.navigate('HomeComponent');
@@ -81,7 +78,7 @@ class WelcomeSplashComponent extends Component {
                   start={{x: 0, y: 0}}
                   end={{x: 1, y: 0}}
                   style={Styles.continueButtonContainer}>
-                  <Text style={Styles.continueToMMTText}>Conitue to MMT</Text>
+                  <Text style={Styles.continueToMMTText}>Continue to MMT</Text>
                 </LinearGradient>
               </TouchableOpacity>
             </View>
@@ -134,17 +131,25 @@ const Styles = StyleSheet.create({
   },
   continueButtonContainer: {
     justifyContent: 'center',
-    padding: hp(2),
+    padding: wp(4),
     width: wp(80),
+    alignSelf: 'center',
     alignItems: 'center',
-    bottom: hp(30),
     backgroundColor: 'red',
     borderRadius: 15,
   },
   continueToMMTText: {
     fontSize: hp(2),
-    color: '#FFFFFF',
-    fontFamily: fonts.latoBold,
+    color: myColors.white,
+    fontFamily: fonts.latoBlack,
   },
 });
-export default WelcomeSplashComponent;
+const mapStateToProps = state => {
+  return {
+    theme: state.ThemeReducer.theme,
+  };
+};
+export default connect(
+  mapStateToProps,
+  null,
+)(WelcomeSplashComponent);

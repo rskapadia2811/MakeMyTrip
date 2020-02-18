@@ -1,15 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import {fonts, homeHeaderIcon} from '../../../Helpers/variableHelper';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import {setAsyncData} from '../../../Helpers/AsyncStorage';
+import {changeTheme} from '../../../Actions/ThemeAction';
+import {connect} from 'react-redux';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from '../../../Helpers/screenHelper';
 import CustomIcon from '../../../Common/CustomIcon';
-const HomeFacility1Component = ({navigation}) => {
+import {myColors} from '../../../Helpers/ColorHelper';
+const HomeFacility1Component = ({navigation, theme, ...props}) => {
   const FacilityData = [
     {
       id: 1,
@@ -25,14 +29,18 @@ const HomeFacility1Component = ({navigation}) => {
       name: 'Hotels',
       iconType: FontAwesome5,
       iconName: 'hotel',
-      onPress: () => {},
+      onPress: () => {
+        props.changeTheme();
+      },
     },
     {
       id: 3,
       name: 'Villas & Apts',
       iconType: Fontisto,
       iconName: 'holiday-village',
-      onPress: () => {},
+      onPress: () => {
+        setAsyncData('mode', 'light');
+      },
     },
     {
       id: 4,
@@ -52,16 +60,25 @@ const HomeFacility1Component = ({navigation}) => {
   const facilityRenderItem = ({item, index}) => {
     return (
       <View style={Styles.FacilityRow}>
-        <TouchableOpacity onPress={() => item.onPress()}>
+        <TouchableOpacity
+          onPress={() => {
+            item.onPress();
+          }}>
           <View style={Styles.singleFacilityContainer}>
             <CustomIcon
               IconType={item.iconType}
               name={item.iconName}
               size={homeHeaderIcon.size}
-              color={homeHeaderIcon.color}
+              color={myColors.skyBlue}
               style={Styles.iconStyle}
             />
-            <Text style={Styles.facilityName}>{item.name}</Text>
+            <Text
+              style={{
+                ...Styles.facilityName,
+                color: myColors.primaryTextColor[theme],
+              }}>
+              {item.name}
+            </Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -72,6 +89,7 @@ const HomeFacility1Component = ({navigation}) => {
   return (
     <View style={Styles.FacilitiesContainer}>
       <FlatList
+        scrollEnabled={false}
         data={FacilityData}
         numColumns={5}
         renderItem={(item, index) => facilityRenderItem(item, index)}
@@ -80,12 +98,19 @@ const HomeFacility1Component = ({navigation}) => {
   );
 };
 
+const reRender = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => ++value); // update the state to force render
+};
+
 const Styles = StyleSheet.create({
   FacilitiesContainer: {
     flexDirection: 'column',
     width: wp(100),
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
   },
   FacilityRow: {
     flexDirection: 'row',
@@ -108,5 +133,15 @@ const Styles = StyleSheet.create({
     fontFamily: fonts.latoBold,
   },
 });
-
-export default HomeFacility1Component;
+const mapStateToProps = state => {
+  return {
+    theme: state.ThemeReducer.theme,
+  };
+};
+const mapDispatchToProps = {
+  changeTheme,
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HomeFacility1Component);

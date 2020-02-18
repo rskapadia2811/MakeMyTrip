@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
-
+import {myColors} from '../../../Helpers/ColorHelper';
 // Component
 import LoginPasswordHeaderComponent from './Components/loginPasswordHeaderComponent';
 import LoginPasswordBodyComponent from './Components/loginPasswordBodyComponent';
@@ -32,7 +32,6 @@ export class LoginPasswordMainComponent extends Component {
           <LoginPasswordBodyComponent
             prevData={this.data}
             setVisibleButton={(value, prevData) => {
-              console.log(prevData);
               this.setState({
                 visibleButton: value,
               });
@@ -41,6 +40,7 @@ export class LoginPasswordMainComponent extends Component {
           />
         </View>
         <LoginPasswordFooterComponent
+          theme={this.props.theme}
           visibleButton={this.state.visibleButton}
           onPress={() => {
             if (this.prevData && this.prevData.email) {
@@ -67,14 +67,20 @@ const Styles = StyleSheet.create({
   },
   loginSignupMainContainer: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: myColors.white,
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    theme: this.props.theme,
+  };
+};
 const mapDispatchToProps = {
   loginWithEmail,
   loginWithPhone,
 };
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(LoginPasswordMainComponent);

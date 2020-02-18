@@ -5,8 +5,10 @@ import {
   TouchableOpacity,
   Text,
   FlatList,
+  KeyboardAvoidingView,
   Image,
 } from 'react-native';
+import {myColors} from '../../../../Helpers/ColorHelper';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -18,6 +20,10 @@ import {connect} from 'react-redux';
 import CustomTextInput from '../../../../Common/CustomTextInput';
 import CustomIcon from '../../../../Common/CustomIcon';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {
+  _getLocation,
+  _getCurrentCity,
+} from '../../../../Helpers/LocationHelper';
 class SearchAirportCityMainComponent extends Component {
   constructor() {
     super();
@@ -27,17 +33,21 @@ class SearchAirportCityMainComponent extends Component {
     };
   }
   componentDidMount(): void {
-    this.props
-      .searchAirportCity('Surat')
-      .then(response => {
-        this.setState({
-          airportData: response,
-        });
-      })
-      .catch(error => {
-        console.log(error);
+    _getLocation().then(res => {
+      _getCurrentCity(res.latitude, res.longitude).then(cityName => {
+        this.props
+          .searchAirportCity(cityName)
+          .then(response => {
+            this.setState({
+              airportData: response,
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        this.wayData = this.props.navigation.getParam('wayData');
       });
-    this.wayData = this.props.navigation.getParam('wayData');
+    });
   }
 
   airportCityRenderItem = ({item, index}) => {
@@ -54,7 +64,11 @@ class SearchAirportCityMainComponent extends Component {
         }}>
         <View style={{...Styles.singleAirportItem}}>
           <View style={{flexDirection: 'column', width: wp(70)}}>
-            <Text style={{...Styles.cityNameText}}>
+            <Text
+              style={{
+                ...Styles.cityNameText,
+                color: myColors.primaryTextColor[this.props.theme],
+              }}>
               {item.ct.n + ', ' + item.xtr.cnt_n}
             </Text>
             <Text style={{...Styles.airportNameText}}>{item.n}</Text>
@@ -81,11 +95,17 @@ class SearchAirportCityMainComponent extends Component {
   render() {
     return (
       <GLOBAL>
-        <View style={{...Styles.searchAirportCityHeaderContainer}}>
+        <View
+          style={{
+            ...Styles.searchAirportCityHeaderContainer,
+            backgroundColor: myColors.primaryBGColor[this.props.theme],
+          }}>
           <CustomIcon
+            style={{marginTop: wp(4)}}
             IconType={MaterialIcons}
             name={'arrow-back'}
             size={wp(6)}
+            color={myColors.primaryTextColor[this.props.theme]}
           />
           <CustomTextInput
             showLabel={false}
@@ -108,24 +128,43 @@ class SearchAirportCityMainComponent extends Component {
               this.setState({airportCity: text});
             }}
             autoCapitalize={true}
-            style={{marginLeft: wp(3), paddingBottom: wp(5)}}
+            style={{marginLeft: wp(3)}}
             data={this.state.airportCity}
           />
-          <View style={{...Styles.clearTextContainer}}>
+          <View
+            style={{
+              ...Styles.clearTextContainer,
+              backgroundColor: myColors.primaryBGColor[this.props.theme],
+            }}>
             <TouchableOpacity onPress={() => this.setState({airportCity: ''})}>
-              <Text style={{...Styles.clearText}}>CLEAR</Text>
+              <Text
+                style={{
+                  ...Styles.clearText,
+                  color: myColors.primaryTextColor[this.props.theme],
+                }}>
+                CLEAR
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{...Styles.searchAirportCityBodyContainer}}>
-          <FlatList
-            keyExtractor={item => item._id}
-            data={this.state.airportData}
-            renderItem={(item, index) =>
-              this.airportCityRenderItem(item, index)
-            }
-            ListEmptyComponent={() => this.emptyAirportCityRenderItem()}
-          />
+        <View
+          style={{
+            ...Styles.searchAirportCityBodyContainer,
+            backgroundColor: myColors.primaryBGColor[this.props.theme],
+          }}>
+          <KeyboardAvoidingView style={{flex: 1}} behavior={'height'}>
+            <FlatList
+              style={{flex: 1}}
+              keyExtractor={item => item._id.toString()}
+              keyboardShouldPersistTaps={'always'}
+              // keyboardDismissMode={'on-drag'}
+              data={this.state.airportData}
+              renderItem={(item, index) =>
+                this.airportCityRenderItem(item, index)
+              }
+              ListEmptyComponent={() => this.emptyAirportCityRenderItem()}
+            />
+          </KeyboardAvoidingView>
         </View>
       </GLOBAL>
     );
@@ -135,7 +174,6 @@ const Styles = StyleSheet.create({
   searchAirportCityHeaderContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
     paddingHorizontal: wp(5),
     shadowOffset: {width: 0, height: 0},
     shadowRadius: 5,
@@ -148,13 +186,15 @@ const Styles = StyleSheet.create({
     paddingVertical: wp(2),
     paddingHorizontal: wp(5),
     right: wp(0),
-    backgroundColor: '#FFFFFF',
   },
   clearText: {
     fontFamily: fonts.latoBold,
     fontSize: wp(3),
   },
-  searchAirportCityBodyContainer: {},
+  searchAirportCityBodyContainer: {
+    flex: 1,
+    zIndex: -5,
+  },
   singleAirportItem: {
     padding: wp(5),
     flexDirection: 'row',
@@ -187,10 +227,15 @@ const Styles = StyleSheet.create({
     marginTop: hp(-20),
   },
 });
+const mapStateToProps = state => {
+  return {
+    theme: state.ThemeReducer.theme,
+  };
+};
 const mapDispatchToProps = {
   searchAirportCity,
 };
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(SearchAirportCityMainComponent);

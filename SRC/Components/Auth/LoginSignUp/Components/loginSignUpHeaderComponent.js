@@ -3,7 +3,8 @@ import {widthPercentageToDP as wp} from '../../../../Helpers/screenHelper';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {fonts} from '../../../../Helpers/variableHelper';
-import CustomIcon from '../../../../Common/CustomIcon';
+import {myColors} from '../../../../Helpers/ColorHelper';
+
 const LoginSignUpHeaderComponent = ({navigation}) => {
   return (
     <View style={Styles.loginSignUpHeaderContainer}>
@@ -11,7 +12,7 @@ const LoginSignUpHeaderComponent = ({navigation}) => {
         {/*<CustomIcon*/}
         {/*  IconType={Ionicons}*/}
         {/*  name={'ios-arrow-round-back'}*/}
-        {/*  color={'#858585'}*/}
+        {/*  color={myColors.lightGrey}*/}
         {/*  size={wp(10)}*/}
         {/*  style={Styles.backIcon}*/}
         {/*/>*/}
@@ -32,7 +33,7 @@ const Styles = StyleSheet.create({
   skipText: {
     fontSize: wp(4),
     fontFamily: fonts.latoBlack,
-    color: '#858585',
+    color: myColors.lightGrey,
   },
 });
 export default LoginSignUpHeaderComponent;

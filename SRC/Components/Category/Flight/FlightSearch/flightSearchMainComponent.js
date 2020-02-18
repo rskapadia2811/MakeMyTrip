@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {NavigationEvents} from 'react-navigation';
+import {myColors} from '../../../../Helpers/ColorHelper';
 import {connect} from 'react-redux';
-import _ from 'lodash';
 import FlightSearchHeaderComponent from './Components/flightSearchHeaderComponent';
 import FlightSearchBodyComponent from './Components/flightSearchBodyComponent';
 import GLOBAL from '../../../GLOBAL';
@@ -11,10 +11,12 @@ class FlightSearchMainComponent extends Component {
     super();
     this.state = {
       wayIndex: 0,
+      fromDate: new Date(),
       oneWayFromCityData: null,
       oneWayToCityData: null,
     };
   }
+
   setStateData = (key, value) => {
     this.setState(
       {
@@ -37,16 +39,28 @@ class FlightSearchMainComponent extends Component {
         />
         <View style={{...Styles.flightSearchMainContainer}}>
           <FlightSearchHeaderComponent
+            theme={this.props.theme}
             navigation={this.props.navigation}
             onPress={index => {
-              console.log(index);
               this.setState({wayIndex: index});
             }}
+            wayIndex={this.state.wayIndex}
           />
           <FlightSearchBodyComponent
+            theme={this.props.theme}
             navigation={this.props.navigation}
             state={this.state}
             index={this.state.wayIndex}
+            setTrip={value => {
+              this.setState({wayIndex: value});
+            }}
+            fromDate={
+              this.props &&
+              this.props.navigation &&
+              this.props.navigation.state &&
+              this.props.navigation.state.params &&
+              this.props.navigation.state.params.date
+            }
           />
         </View>
       </GLOBAL>
@@ -59,7 +73,12 @@ const Styles = StyleSheet.create({
     flex: 1,
   },
 });
+const mapStateToProps = state => {
+  return {
+    theme: state.ThemeReducer.theme,
+  };
+};
 export default connect(
-  null,
+  mapStateToProps,
   null,
 )(FlightSearchMainComponent);

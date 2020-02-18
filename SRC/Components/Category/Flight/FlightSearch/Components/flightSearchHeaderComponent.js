@@ -1,13 +1,22 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CustomIcon from '../../../../../Common/CustomIcon';
 import {fonts} from '../../../../../Helpers/variableHelper';
 import {widthPercentageToDP as wp} from '../../../../../Helpers/screenHelper';
+import {myColors} from '../../../../../Helpers/ColorHelper';
 
-const FlightSearchHeaderComponent = ({navigation, onPress = () => {}}) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+const FlightSearchHeaderComponent = ({
+  navigation,
+  onPress = () => {},
+  wayIndex = 0,
+  theme,
+}) => {
+  const [selectedIndex, setSelectedIndex] = useState(wayIndex);
+  useEffect(() => {
+    setSelectedIndex(wayIndex);
+  }, [wayIndex]);
   const wayData = [
     {
       id: 1,
@@ -41,7 +50,7 @@ const FlightSearchHeaderComponent = ({navigation, onPress = () => {}}) => {
             <CustomIcon
               IconType={AntDesign}
               name={'checkcircle'}
-              color={'#FFFFFF'}
+              color={myColors.white}
               size={wp(4)}
             />
           ) : (
@@ -61,18 +70,34 @@ const FlightSearchHeaderComponent = ({navigation, onPress = () => {}}) => {
   };
   return (
     <View>
-      <View style={{...Styles.flightSearchHeaderMainContainer}}>
+      <View
+        style={{
+          ...Styles.flightSearchHeaderMainContainer,
+          backgroundColor: myColors.primaryBGColor[theme],
+        }}>
         <TouchableOpacity onPress={() => navigation.navigate('HomeComponent')}>
           <CustomIcon
             IconType={Ionicons}
             name={'ios-arrow-round-back'}
-            color={'#000000'}
+            color={myColors.primaryTextColor[theme]}
             size={wp(10)}
             style={{...Styles.backIcon}}
           />
         </TouchableOpacity>
-        <Text style={{...Styles.flightText}}>Flight</Text>
-        <Text style={{...Styles.searchText}}>Search</Text>
+        <Text
+          style={{
+            ...Styles.flightText,
+            color: myColors.primaryTextColor[theme],
+          }}>
+          Flight
+        </Text>
+        <Text
+          style={{
+            ...Styles.searchText,
+            color: myColors.primaryTextColor[theme],
+          }}>
+          Search
+        </Text>
       </View>
       <View style={{...Styles.wayContainer}}>
         <FlatList
@@ -88,7 +113,6 @@ const FlightSearchHeaderComponent = ({navigation, onPress = () => {}}) => {
 };
 const Styles = StyleSheet.create({
   flightSearchHeaderMainContainer: {
-    backgroundColor: '#FFFFFF',
     alignItems: 'center',
     flexDirection: 'row',
     paddingVertical: wp(5),
@@ -113,7 +137,7 @@ const Styles = StyleSheet.create({
   },
   wayContainer: {
     zIndex: 500,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: myColors.white,
     position: 'absolute',
     justifyContent: 'space-between',
     alignSelf: 'center',
@@ -143,17 +167,17 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
     height: wp(6.5),
     width: wp(90) / 3,
-    backgroundColor: '#3873FE',
+    backgroundColor: myColors.seaBlue,
     borderRadius: 15,
   },
   selectedWayText: {
     fontSize: wp(3.5),
     marginLeft: wp(1),
     fontFamily: fonts.latoBlack,
-    color: '#FFFFFF',
+    color: myColors.white,
   },
   notSelectWayText: {
-    color: '#000000',
+    color: myColors.black,
     fontSize: wp(3.5),
     fontFamily: fonts.latoBlack,
   },

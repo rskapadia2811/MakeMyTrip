@@ -7,15 +7,15 @@ const setAsyncData = async (key, value) => {
   }
 };
 
-const getAsyncData = async key => {
+const getAsyncData = key => {
   try {
-    let value = await AsyncStorage.getItem(key);
+    let value = AsyncStorage.getItem(key);
     if (value != null) {
       return Promise.resolve(value);
     } else {
       return '';
     }
-  } catch (error) {
+  } catch (error) {0.
     console.log(error);
   }
 };

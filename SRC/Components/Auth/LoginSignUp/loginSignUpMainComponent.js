@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import {myColors} from '../../../Helpers/ColorHelper';
 // Component
 import LoginSignUpHeaderComponent from './Components/loginSignUpHeaderComponent';
 import LoginSignUpBodyComponent from './Components/loginSignUpBodyComponent';
@@ -11,21 +12,31 @@ import {checkEmailMobile} from '../../../Actions/authAction';
 import GLOBAL from '../../GLOBAL';
 
 export class LoginSignUpMainComponent extends Component {
+  constructor() {
+    super();
+  }
+  componentDidMount(): void {}
+
   loginSignUpCallback = (component, data) => {
     this.props.navigation.navigate(component, {data: data});
   };
   render() {
     return (
       <GLOBAL>
-        <View style={Styles.loginSignupMainContainer}>
+        <View
+          style={{
+            ...Styles.loginSignupMainContainer,
+            backgroundColor: myColors.primaryBGColor[this.props.theme],
+          }}>
           <LoginSignUpHeaderComponent navigation={this.props.navigation} />
           <LoginSignUpBodyComponent
+            theme={this.props.theme}
             emailMobileCheck={(type, data) => {
               this.props.checkEmailMobile(type, data, this.loginSignUpCallback);
             }}
           />
         </View>
-        <LoginSignUpFooterComponent />
+        <LoginSignUpFooterComponent theme={this.props.theme} />
       </GLOBAL>
     );
   }
@@ -37,11 +48,12 @@ const Styles = StyleSheet.create({
   },
   loginSignupMainContainer: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
   },
 });
 const mapStateToProps = state => {
-  return {};
+  return {
+    theme: state.ThemeReducer.theme,
+  };
 };
 const mapDispatchToProps = {
   checkEmailMobile,

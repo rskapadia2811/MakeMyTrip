@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {myColors} from '../../../Helpers/ColorHelper';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -36,12 +37,16 @@ const HomeFindStatusComponent = () => {
   ];
   const statusOfRenderItem = ({item}) => {
     return (
-      <View style={Styles.singleStatusOfContainer}>
+      <View
+        style={{
+          ...Styles.singleStatusOfContainer,
+          backgroundColor: myColors.lightRed,
+        }}>
         <CustomIcon
           IconType={item.iconType}
           name={item.iconName}
           size={wp(4)}
-          color={'#EC1C27'}
+          color={myColors.red}
           style={Styles.iconStyle}
         />
         <Text style={Styles.findStatusNameText}>{item.name}</Text>
@@ -64,7 +69,6 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   singleStatusOfContainer: {
-    backgroundColor: '#FCE5E6',
     alignItems: 'center',
     flexDirection: 'row',
     padding: hp(1.2),

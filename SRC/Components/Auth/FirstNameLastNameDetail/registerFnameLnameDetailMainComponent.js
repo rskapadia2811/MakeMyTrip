@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {registerUser} from '../../../Actions/authAction';
+import {myColors} from '../../../Helpers/ColorHelper';
+import GLOBAL from '../../GLOBAL';
+
 // Component
 import RegisterFnameLnameDetailHeaderComponent from './Components/registerFnameLnameDetailHeaderComponent';
 import RegisterFnameLnameDetailBodyComponent from './Components/registerFnameLnameDetailBodyComponent';
 import RegisterFnameLnameDetailFooterComponent from './Components/registerFnameLnameDetailFooterComponent';
-import GLOBAL from '../../GLOBAL';
 
 // Action
 export class RegisterFnameLnameDetailMainComponent extends Component {
   registerThisUser = component => {
-    console.log(component);
     this.props.navigation.navigate(component);
   };
   constructor() {
@@ -40,6 +41,7 @@ export class RegisterFnameLnameDetailMainComponent extends Component {
           />
         </View>
         <RegisterFnameLnameDetailFooterComponent
+          theme={this.props.theme}
           visibleButton={this.state.visibleButton}
           onPress={() => {
             this.props.registerUser(this.prevData, this.registerThisUser);
@@ -56,13 +58,19 @@ const Styles = StyleSheet.create({
   },
   loginSignupMainContainer: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: myColors.white,
   },
 });
 const mapDispatchToProps = {
   registerUser,
 };
+
+const mapStateToProps = state => {
+  return {
+    theme: state.ThemeReducer.theme,
+  };
+};
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(RegisterFnameLnameDetailMainComponent);

@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {myColors} from '../../../../../Helpers/ColorHelper';
 import LinearGradient from 'react-native-linear-gradient';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import moment from 'moment';
@@ -17,12 +18,16 @@ import {fonts} from '../../../../../Helpers/variableHelper';
 import CustomSeperator from '../../../../../Common/CustomSeperator';
 import CustomIcon from '../../../../../Common/CustomIcon';
 import DontMissDealComponent from './dontMissDealComponent';
-import CustomDateTimePicker from '../../../../../Common/CustomDateTimePicker';
 
 const FlightSearchOneWayComponent = ({
   navigation,
   oneWayFromCityData,
+  roundTrip = false,
   oneWayToCityData,
+  fromDate = new Date(),
+  toDate = new Date().setDate(new Date().getDay() + 1),
+  setTrip = () => {},
+  theme,
 }) => {
   let oneWayFromCityData1 = oneWayFromCityData
     ? oneWayFromCityData
@@ -30,16 +35,28 @@ const FlightSearchOneWayComponent = ({
   let oneWayToCityData1 = oneWayToCityData
     ? oneWayToCityData
     : {city: 'Mumbai', cityCode: 'BOM'};
-  const [depatureDate, setDepatureDate] = useState(new Date());
-  const [returnDate, setReturnDate] = useState(new Date());
-  const [openDepatureDTPicker, setOpenDepatureDTPicker] = useState(false);
-  const [openReturnDTPicker, setOpenReturnDTPicker] = useState(false);
+  const [depatureDate, setDepatureDate] = useState(new Date(fromDate));
+  const [returnDate, setReturnDate] = useState(new Date(returnDate));
   const cDate = new Date();
   const maxDepatureDate = new Date();
   maxDepatureDate.setMonth(cDate.getMonth() + 8);
   return (
-    <View>
-      <View style={{...Styles.oneWayContainer}}>
+    <View
+      style={{
+        backgroundColor:
+          theme === 'dark' ? myColors.shadeBlack : myColors.backWhite,
+      }}>
+      <View
+        style={{
+          ...Styles.tvScreenBottom,
+          backgroundColor: myColors.primaryBGColor[theme],
+        }}
+      />
+      <View
+        style={{
+          ...Styles.oneWayContainer,
+          backgroundColor: myColors.primaryBGColor[theme],
+        }}>
         {/* From Container */}
         <TouchableOpacity
           style={{...Styles.oneSlotMainContainer}}
@@ -49,7 +66,11 @@ const FlightSearchOneWayComponent = ({
             })
           }>
           <Text style={{...Styles.labelText}}>FROM</Text>
-          <Text style={{...Styles.cityName}}>
+          <Text
+            style={{
+              ...Styles.cityName,
+              color: myColors.primaryTextColor[theme],
+            }}>
             {oneWayFromCityData1.city}
             <Text style={{...Styles.cityCode}}>
               &nbsp;{oneWayFromCityData1.cityCode}
@@ -66,50 +87,56 @@ const FlightSearchOneWayComponent = ({
             })
           }>
           <Text style={{...Styles.labelText}}>TO</Text>
-          <Text style={{...Styles.cityName}}>
+          <Text
+            style={{
+              ...Styles.cityName,
+              color: myColors.primaryTextColor[theme],
+            }}>
             {oneWayToCityData1.city}
-            <Text pstyle={{...Styles.cityCode}}>
-              &nbs;{oneWayToCityData1.cityCode}
+            <Text style={{...Styles.cityCode}}>
+              &nbsp; {oneWayToCityData1.cityCode}
             </Text>
           </Text>
         </TouchableOpacity>
+        <CustomSeperator />
         <View
           style={{
             ...Styles.depatureReturnContainer,
             ...Styles.oneSlotMainContainer,
           }}>
           <View style={{flexDirection: 'row', flex: 1}}>
-            {/*Depature Date*/}
-            <CustomDateTimePicker
-              openDateTimePicker={setOpenDepatureDTPicker}
-              datefunction={openDepatureDTPicker}
-              minDate={new Date()}
-              maxDate={maxDepatureDate}
-              onChangeDateTime={dt => {
-                debugger;
-                setDepatureDate(dt);
-              }}
-            />
             <TouchableOpacity
               style={{flex: 1}}
-              onPress={() => setOpenDepatureDTPicker(true)}>
+              onPress={() =>
+                navigation.navigate('DateSelectionComponent', {
+                  way: 'depature',
+                })
+              }>
               <Text style={{...Styles.labelText}}>DEPATURE</Text>
               <View style={{flexDirection: 'row'}}>
                 <View>
-                  <Text style={{...Styles.dateText}}>
-                    {moment(depatureDate).format('DD')}
+                  <Text
+                    style={{
+                      ...Styles.dateText,
+                      color: myColors.primaryTextColor[theme],
+                    }}>
+                    {moment(fromDate).format('DD')}
                   </Text>
                 </View>
                 <View
                   style={{
                     justifyContent: 'center',
                   }}>
-                  <Text style={{...Styles.monthYearText}}>
-                    {moment(depatureDate).format('MMM')}{' '}
-                    {moment(depatureDate).format('YYYY')}
+                  <Text
+                    style={{
+                      ...Styles.monthYearText,
+                      color: myColors.primaryTextColor[theme],
+                    }}>
+                    {moment(fromDate).format('MMM')}{' '}
+                    {moment(fromDate).format('YYYY')}
                   </Text>
                   <Text style={{...Styles.dayText}}>
-                    {moment(depatureDate).format('dddd')}
+                    {moment(fromDate).format('dddd')}
                   </Text>
                 </View>
               </View>
@@ -119,11 +146,51 @@ const FlightSearchOneWayComponent = ({
           {/*RETURN*/}
           <TouchableOpacity
             style={{flex: 1}}
-            onPress={() => setOpenReturnDTPicker(true)}>
+            onPress={() => {
+              setTrip(1);
+              navigation.navigate('DateSelectionComponent', {
+                date: moment(fromDate).format('YYYY-MM-DD'),
+                way: 'return',
+              });
+            }}>
             <Text style={{...Styles.labelText}}>RETURN</Text>
-            <Text style={{...Styles.bookRoundText}}>
-              Book round trips{'\n'} for great savings
-            </Text>
+            {roundTrip === true ? (
+              <View style={{flexDirection: 'row'}}>
+                <View>
+                  <Text
+                    style={{
+                      ...Styles.dateText,
+                      color: myColors.primaryTextColor[theme],
+                    }}>
+                    {moment(toDate).format('DD')}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    justifyContent: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      ...Styles.monthYearText,
+                      color: myColors.primaryTextColor[theme],
+                    }}>
+                    {moment(toDate).format('MMM')}{' '}
+                    {moment(toDate).format('YYYY')}
+                  </Text>
+                  <Text style={{...Styles.dayText}}>
+                    {moment(toDate).format('dddd')}
+                  </Text>
+                </View>
+              </View>
+            ) : (
+              <Text
+                style={{
+                  ...Styles.bookRoundText,
+                  color: myColors.primaryTextColor[theme],
+                }}>
+                Book round trips{'\n'} for great savings
+              </Text>
+            )}
           </TouchableOpacity>
         </View>
         <CustomSeperator />
@@ -134,25 +201,37 @@ const FlightSearchOneWayComponent = ({
           }}>
           <TouchableOpacity style={{flex: 1}}>
             <Text style={{...Styles.labelText}}>TRAVELLERS</Text>
-            <Text style={{...Styles.travellerText}}>01</Text>
+            <Text
+              style={{
+                ...Styles.travellerText,
+                color: myColors.primaryTextColor[theme],
+              }}>
+              01
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
               flex: 1,
             }}>
             <Text style={{...Styles.labelText}}>CABIN CLASS</Text>
-            <Text style={{...Styles.classText}}>Economy Class</Text>
+            <Text
+              style={{
+                ...Styles.classText,
+                color: myColors.primaryTextColor[theme],
+              }}>
+              Economy Class
+            </Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity>
           <LinearGradient
-            colors={['#53b2fe', '#065af3']}
+            colors={myColors.primaryGradiantColor[theme]}
             style={{...Styles.searchButtonContainer}}>
             <Text style={{...Styles.searchText}}>SEARCH</Text>
           </LinearGradient>
         </TouchableOpacity>
       </View>
-      <View style={{...Styles.tvScreenBottom}} />
+
       <View style={{...Styles.botomContainer}}>
         <ScrollView
           horizontal={true}
@@ -161,7 +240,11 @@ const FlightSearchOneWayComponent = ({
           <View style={{...Styles.dontMissOutContainer}}>
             <View style={{flexDirection: 'row'}}>
               <View style={{flexDirection: 'column', marginRight: wp(10)}}>
-                <Text style={{...Styles.dontMissText}}>
+                <Text
+                  style={{
+                    ...Styles.dontMissText,
+                    color: myColors.primaryTextColor[theme],
+                  }}>
                   DON'T MISS{'\n'}OUT
                 </Text>
                 <CustomIcon
@@ -173,7 +256,7 @@ const FlightSearchOneWayComponent = ({
                 />
               </View>
               <View>
-                <DontMissDealComponent />
+                <DontMissDealComponent theme={theme} />
               </View>
             </View>
           </View>
@@ -184,24 +267,21 @@ const FlightSearchOneWayComponent = ({
 };
 const Styles = StyleSheet.create({
   oneWayContainer: {
-    backgroundColor: '#FEFEFE',
-    // backgroundColor: 'red',
     paddingTop: wp(10),
     paddingBottom: wp(0),
   },
   tvScreenBottom: {
     width: wp(100) * 5,
     height: wp(100) * 5,
-    backgroundColor: '#FEFEFE',
     position: 'absolute',
     alignSelf: 'center',
-    bottom: wp(50),
+    bottom: hp(95),
     borderRadius: wp(500),
     shadowOffset: {width: 0, height: 20},
     shadowRadius: 10,
     shadowOpacity: 0.1,
     shadowColor: 'black',
-    elevation: 10,
+    elevation: 0,
     zIndex: -1,
   },
   labelText: {
@@ -210,12 +290,11 @@ const Styles = StyleSheet.create({
     fontSize: wp(3.8),
   },
   cityName: {
-    color: '#000000',
     fontFamily: fonts.latoBold,
     fontSize: wp(6),
   },
   cityCode: {
-    color: 'grey',
+    color: myColors.grey,
     fontFamily: fonts.latoBold,
     fontSize: wp(6),
   },
@@ -230,13 +309,11 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
   },
   dateText: {
-    color: '#000000',
     fontFamily: fonts.latoBold,
     marginRight: wp(2),
     fontSize: wp(10),
   },
   monthYearText: {
-    color: 'black',
     fontFamily: fonts.latoRegular,
     fontSize: wp(3.8),
   },
@@ -246,13 +323,11 @@ const Styles = StyleSheet.create({
     fontSize: wp(3.8),
   },
   bookRoundText: {
-    color: 'black',
     fontFamily: fonts.latoRegular,
     fontSize: wp(3.8),
     marginTop: wp(1.5),
   },
   travellerText: {
-    color: '#000000',
     fontFamily: fonts.latoBold,
     fontSize: wp(10),
   },
@@ -273,7 +348,7 @@ const Styles = StyleSheet.create({
   },
   searchText: {
     fontSize: wp(4),
-    color: '#FFFFFF',
+    color: myColors.white,
     fontFamily: fonts.latoBlack,
   },
   botomContainer: {
@@ -282,7 +357,6 @@ const Styles = StyleSheet.create({
   },
   dontMissOutContainer: {},
   dontMissText: {
-    color: '#000000',
     fontFamily: fonts.latoRegular,
     fontSize: wp(5),
   },

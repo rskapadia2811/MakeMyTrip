@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {TextInput, View, StyleSheet, Text} from 'react-native';
 import {widthPercentageToDP as wp} from '../Helpers/screenHelper';
 import {fonts} from '../Helpers/variableHelper';
-
+import {connect} from 'react-redux';
+import {myColors} from '../Helpers/ColorHelper';
 const CustomTextInput = ({
   style = null,
   showLabel = true,
@@ -12,20 +13,21 @@ const CustomTextInput = ({
   labelText = placeHolderText,
   placeholderTextColor = 'grey',
   data = null,
-  onFocusBottomBorderColor = '#2A5FBA',
+  onFocusBottomBorderColor = myColors.lightBlue,
   maxLength = null,
   onBlurBottomBorderColor = 'black',
   onChangeText = () => {},
   returnKeyType = 'default',
-  activeLabelColor = '#2A5FBA',
+  activeLabelColor = myColors.lightBlue,
   deActiveLabelColor = 'grey',
-  autoCapitalize = false,
+  autoCapitalize = 'none',
   showPlaceHolderOnFocus = false,
   labelFontFamily = fonts.latoBold,
   labelFontSize = wp(3),
   autoFocus = false,
   secureTextEntry = false,
   keyboardType = 'default',
+  ...props
 }) => {
   const [focus, setFocus] = useState(false);
   const [show, setShow] = useState('none');
@@ -37,8 +39,12 @@ const CustomTextInput = ({
         ...style,
         borderBottomColor:
           showBottomBorder && focus
-            ? onFocusBottomBorderColor
-            : onBlurBottomBorderColor,
+            ? props.theme === 'light'
+              ? myColors.lightBlue
+              : myColors.darkPink
+            : props.theme === 'dark'
+            ? myColors.white
+            : myColors.black,
         borderBottomWidth: showBottomBorder ? (focus ? 3 : 1) : 0,
       }}>
       {showLabel ? (
@@ -48,7 +54,9 @@ const CustomTextInput = ({
             display: show,
             fontSize: labelFontSize,
             fontFamily: labelFontFamily,
-            color: focus ? activeLabelColor : deActiveLabelColor,
+            color: focus
+              ? myColors.primaryActiveTextBoxLabelColor[props.theme]
+              : deActiveLabelColor,
           }}>
           {labelText}
         </Text>
@@ -59,7 +67,11 @@ const CustomTextInput = ({
         style={{
           ...Styles.txtInput,
           fontFamily: textInputFontFamily,
+          color: props.theme === 'dark' ? myColors.white : myColors.black,
         }}
+        selectionColor={
+          props.theme === 'light' ? myColors.lightBlue : myColors.darkPink
+        }
         autoFocus={autoFocus}
         autoCapitalize={autoCapitalize}
         placeholder={
@@ -107,10 +119,17 @@ const Styles = StyleSheet.create({
   txtInput: {
     marginTop: wp(5.5),
     fontSize: wp(4.5),
-    color: 'black',
   },
   enterMobileEmailText: {
     position: 'absolute',
   },
 });
-export default CustomTextInput;
+const mapStateToProps = state => {
+  return {
+    theme: state.ThemeReducer.theme,
+  };
+};
+export default connect(
+  mapStateToProps,
+  null,
+)(CustomTextInput);

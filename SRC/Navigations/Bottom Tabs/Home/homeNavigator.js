@@ -2,11 +2,13 @@ import {createStackNavigator} from 'react-navigation-stack';
 import HomeMainComponent from '../../../Components/Home/homeMainComponent';
 import FlightSearchMainComponent from '../../../Components/Category/Flight/FlightSearch/flightSearchMainComponent';
 import SearchAirportCityMainComponent from '../../../Components/Category/Flight/SearchAirportCity/searchAirportCityMainComponent';
+import DateSelectionComponent from '../../../Components/DateSelectionComponent/dateSelectionComponent';
 // Flight Stack Navigator
 const FlightStackNavigator = createStackNavigator(
   {
     FlightSearchComponent: FlightSearchMainComponent,
     SearchAirportCityComponent: SearchAirportCityMainComponent,
+    DateSelectionComponent,
   },
   {
     headerMode: 'none',

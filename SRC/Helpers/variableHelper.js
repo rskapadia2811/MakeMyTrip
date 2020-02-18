@@ -1,29 +1,29 @@
 import React from 'react';
 import {Platform} from 'react-native';
-
+import {myColors} from './ColorHelper';
+import {setColor} from './ThemeHelper';
 module.exports = {
   // API URL
   baseURL: 'http://localhost:3001',
-
   // Home CustomIcon Style
   homeHeaderIcon: {
     size: 30,
-    color: '#59A0F2',
+    color: myColors.skyBlue,
   },
 
   // Color Properties
   color: {
-    bottomBarActiveTabColor: '#2858B1',
-    bottomIconColor: '#626161',
-    bottomBarActiveIconBackgroundColor: '#1F1E1E',
-    bottomBarInActiveIconBackgroundColor: '#1F1E1E',
-    topHomeHeaderTextColor: '#000000',
+    bottomBarActiveTabColor: myColors.skyBlue,
+    bottomIconColor: myColors.darkGrey,
+    bottomBarActiveIconBackgroundColor: myColors.metBlack,
+    bottomBarInActiveIconBackgroundColor: myColors.metBlack,
+    topHomeHeaderTextColor: myColors.black,
   },
 
   // Fonts Properties
   fonts: {
-    latoBlack: 'Lato-Black',
     latoBlackItalic: 'Lato-BlackItalic',
+    latoBlack: 'Lato-Black',
     latoBold: 'Lato-Bold',
     latoBoldItalic: 'Lato-BoldItalic',
     latoItalic: 'Lato-Italic',
