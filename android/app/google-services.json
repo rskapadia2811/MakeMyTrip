@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "933499537429",
+    "firebase_url": "https://planar-cycle-268206.firebaseio.com",
+    "project_id": "planar-cycle-268206",
+    "storage_bucket": "planar-cycle-268206.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933499537429:android:b920ccf73c66cb0dfb661c",
+        "android_client_info": {
+          "package_name": "com.makemytripdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933499537429-tnc134md50q785urvi74lfr7ravnaikc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoWrrws3f4ndYSLuBZ87aWg0r9IUfQ31g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933499537429-tnc134md50q785urvi74lfr7ravnaikc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "933499537429-ibc4086ek64nhkchi8vc559g046983ir.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.rishi.MakeMyTrip1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
