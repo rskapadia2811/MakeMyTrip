@@ -8,13 +8,24 @@ import GLOBAL from '../../GLOBAL';
 import RegisterPasswordHeaderComponent from './Components/registerPasswordHeaderComponent';
 import RegisterPasswordBodyComponent from './Components/registerPasswordBodyComponent';
 import RegisterPasswordFooterComponent from './Components/registerPasswordFooterComponent';
+import {auth} from 'react-native-firebase';
 
 // Action
 export class RegisterPasswordMainComponent extends Component {
   passwordCallback = prevData => {
-    this.props.navigation.navigate('RegisterFnameLnameDetailComponent', {
-      prevData,
-    });
+    auth()
+      .createUserWithEmailAndPassword(
+        this.prevData.email,
+        this.prevData.password,
+      )
+      .then(data => {
+        let uid = data['user']['uid'];
+        this.props.navigation.navigate('RegisterFnameLnameDetailComponent', {
+          uid: uid,
+          prevData: {email: this.prevData.email},
+        });
+      })
+      .catch(error => console.log(error));
   };
   constructor() {
     super();
@@ -37,9 +48,14 @@ export class RegisterPasswordMainComponent extends Component {
   render() {
     return (
       <GLOBAL>
-        <View style={Styles.loginSignupMainContainer}>
+        <View
+          style={{
+            ...Styles.loginSignupMainContainer,
+            backgroundColor: myColors.primaryBGColor[this.props.theme],
+          }}>
           <RegisterPasswordHeaderComponent navigation={this.props.navigation} />
           <RegisterPasswordBodyComponent
+            theme={this.props.theme}
             prevData={this.data}
             setVisibleButton={(value, prevData) => {
               this.setState({

@@ -19,15 +19,23 @@ import {passwordValidation} from '../../../../Helpers/validationHelper';
 import CustomTextInput from '../../../../Common/CustomTextInput';
 
 //
-const LoginPasswordBodyComponent = ({setVisibleButton, prevData}) => {
+const LoginPasswordBodyComponent = ({theme, setVisibleButton, prevData}) => {
   const [password, setPassword] = useState('');
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: myColors.primaryBGColor[theme]}}>
       <View style={Styles.loginSignUpBodyContainer}>
-        <Text style={Styles.loginCreateAccountText}>
+        <Text
+          style={{
+            ...Styles.loginCreateAccountText,
+            color: myColors.primaryTextColor[theme],
+          }}>
           Apply your credential for Login
         </Text>
-        <Text style={{...Styles.toViewOrEditProfileText}}>
+        <Text
+          style={{
+            ...Styles.toViewOrEditProfileText,
+            color: myColors.primaryTextColor[theme],
+          }}>
           Use 8 or more characters with a mix of letters, numbers & symbols
           @$!%*#?&
         </Text>
@@ -69,12 +77,10 @@ const Styles = StyleSheet.create({
     marginRight: wp(3),
   },
   loginCreateAccountText: {
-    color: 'black',
     fontSize: wp(6),
     fontFamily: fonts.latoBold,
   },
   toViewOrEditProfileText: {
-    color: 'black',
     fontSize: wp(4),
     marginTop: wp(1),
     fontFamily: fonts.latoRegular,

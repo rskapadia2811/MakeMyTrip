@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import CustomIcon from '../../../../Common/CustomIcon';
 import {myColors} from '../../../../Helpers/ColorHelper';
 
-const LoginOTPHeaderComponent = ({theme, navigation}) => {
+const RegisterOTPHeaderComponent = ({theme, navigation}) => {
   return (
     <View
       style={{
@@ -33,4 +33,4 @@ const Styles = StyleSheet.create({
     marginLeft: wp(3),
   },
 });
-export default LoginOTPHeaderComponent;
+export default RegisterOTPHeaderComponent;

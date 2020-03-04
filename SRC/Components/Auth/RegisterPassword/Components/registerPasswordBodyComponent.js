@@ -19,15 +19,23 @@ import {passwordValidation} from '../../../../Helpers/validationHelper';
 import CustomTextInput from '../../../../Common/CustomTextInput';
 
 //
-const RegisterPasswordBodyComponent = ({setVisibleButton, prevData}) => {
+const RegisterPasswordBodyComponent = ({theme, setVisibleButton, prevData}) => {
   const [password, setPassword] = useState('');
   return (
     <View style={{flex: 1}}>
       <View style={Styles.loginSignUpBodyContainer}>
-        <Text style={Styles.loginCreateAccountText}>
+        <Text
+          style={{
+            ...Styles.loginCreateAccountText,
+            color: myColors.primaryTextColor[theme],
+          }}>
           Let's secure your new account with a password
         </Text>
-        <Text style={{...Styles.toViewOrEditProfileText}}>
+        <Text
+          style={{
+            ...Styles.toViewOrEditProfileText,
+            color: myColors.primaryTextColor[theme],
+          }}>
           Use 8 or more characters with a mix of letters, numbers & symbols
           @$!%*#?&
         </Text>

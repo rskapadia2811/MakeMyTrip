@@ -98,12 +98,6 @@ const HomeFacility1Component = ({navigation, theme, ...props}) => {
   );
 };
 
-const reRender = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue(value => ++value); // update the state to force render
-};
-
 const Styles = StyleSheet.create({
   FacilitiesContainer: {
     flexDirection: 'column',

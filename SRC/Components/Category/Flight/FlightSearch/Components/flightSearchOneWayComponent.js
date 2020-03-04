@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -6,9 +6,12 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {searchFlight} from '../../../../../Actions/oneWayRoundTripAction';
+import {connect} from 'react-redux';
 import {myColors} from '../../../../../Helpers/ColorHelper';
 import LinearGradient from 'react-native-linear-gradient';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import {get} from 'lodash';
 import moment from 'moment';
 import {
   widthPercentageToDP as wp,
@@ -25,21 +28,35 @@ const FlightSearchOneWayComponent = ({
   roundTrip = false,
   oneWayToCityData,
   fromDate = new Date(),
-  toDate = new Date().setDate(new Date().getDay() + 1),
+  toDate = new Date().getDay(new Date().getDay() + 1),
   setTrip = () => {},
   theme,
+  ...props
 }) => {
+  const [adults, setAdult] = useState(1);
+  const [childs, setChild] = useState(0);
+  const [infants, setInfant] = useState(0);
+  const [classes1, setClasses] = useState('Economy');
+  const [totalTravellers, setTotalTravellers] = useState(
+    adults + childs + infants,
+  );
   let oneWayFromCityData1 = oneWayFromCityData
     ? oneWayFromCityData
     : {city: 'New Delhi', cityCode: 'DEL'};
   let oneWayToCityData1 = oneWayToCityData
     ? oneWayToCityData
     : {city: 'Mumbai', cityCode: 'BOM'};
-  const [depatureDate, setDepatureDate] = useState(new Date(fromDate));
-  const [returnDate, setReturnDate] = useState(new Date(returnDate));
   const cDate = new Date();
   const maxDepatureDate = new Date();
   maxDepatureDate.setMonth(cDate.getMonth() + 8);
+  useEffect(() => {
+    setAdult(get(navigation.state.params, 'adult', 1));
+    setChild(get(navigation.state.params, 'child', 0));
+    setInfant(get(navigation.state.params, 'infant', 0));
+    setClasses(get(navigation.state.params, 'classes', 'Economy'));
+
+    setTotalTravellers(adults + childs + infants);
+  }, [adults, childs, infants, classes1, navigation.state.params]);
   return (
     <View
       style={{
@@ -199,14 +216,23 @@ const FlightSearchOneWayComponent = ({
             ...Styles.travellersCabinContainer,
             ...Styles.oneSlotMainContainer,
           }}>
-          <TouchableOpacity style={{flex: 1}}>
+          <TouchableOpacity
+            style={{flex: 1}}
+            onPress={() =>
+              navigation.navigate('TravellersAndClassComponent', {
+                adults,
+                childs,
+                infants,
+                classes1,
+              })
+            }>
             <Text style={{...Styles.labelText}}>TRAVELLERS</Text>
             <Text
               style={{
                 ...Styles.travellerText,
                 color: myColors.primaryTextColor[theme],
               }}>
-              01
+              {totalTravellers <= 9 ? '0' + totalTravellers : totalTravellers}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -219,11 +245,36 @@ const FlightSearchOneWayComponent = ({
                 ...Styles.classText,
                 color: myColors.primaryTextColor[theme],
               }}>
-              Economy Class
+              {classes1} Class
             </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            let data = {
+              tripType: roundTrip == false ? 'O' : 'R',
+              departureDate: moment(fromDate).format('YYYY-MM-DD'),
+              returnDate: roundTrip === true ? toDate : '',
+              noOfAdults: adults.toString(),
+              noOfChildren: childs.toString(),
+              noOfInfants: infants.toString(),
+              origin: oneWayFromCityData1.cityCode,
+              destination: oneWayToCityData1.cityCode,
+              destinationCity: oneWayToCityData1.city,
+              originCity: oneWayFromCityData1.city,
+              classOfTravel: classes1.toString(),
+              airline: '',
+              src: 'web',
+              appType: null,
+              appTypeTxnId: null,
+              searchType: null,
+              ltc: false,
+            };
+            props.searchFlight(data);
+            navigation.navigate('FlightDisplayComponent', {
+              data,
+            });
+          }}>
           <LinearGradient
             colors={myColors.primaryGradiantColor[theme]}
             style={{...Styles.searchButtonContainer}}>
@@ -361,4 +412,10 @@ const Styles = StyleSheet.create({
     fontSize: wp(5),
   },
 });
-export default FlightSearchOneWayComponent;
+const mapDispatchToProps = {
+  searchFlight,
+};
+export default connect(
+  null,
+  mapDispatchToProps,
+)(FlightSearchOneWayComponent);

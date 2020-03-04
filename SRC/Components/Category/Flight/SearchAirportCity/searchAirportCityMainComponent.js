@@ -175,6 +175,8 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: wp(5),
+    paddingVertical: wp(2),
+    marginTop: wp(-5),
     shadowOffset: {width: 0, height: 0},
     shadowRadius: 5,
     shadowOpacity: 0.5,

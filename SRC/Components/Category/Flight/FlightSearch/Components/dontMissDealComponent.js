@@ -65,7 +65,13 @@ const DontMissDealComponent = ({theme}) => {
             backgroundColor: myColors.primaryBGColor[theme],
           }}>
           <View style={Styles.categoryTopLeftContainer}>
-            <View style={{...Styles.categoryTopLeftLine}} />
+            <View
+              style={{
+                ...Styles.categoryTopLeftLine,
+                backgroundColor:
+                  theme === 'dark' ? myColors.darkPink : myColors.lightBlue,
+              }}
+            />
             <Text
               style={{
                 ...Styles.categoryText,
@@ -163,7 +169,6 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
   },
   categoryTopLeftLine: {
-    backgroundColor: myColors.lightBlue,
     marginLeft: wp(-2.5),
     width: wp(0.8),
     height: wp(3.5),

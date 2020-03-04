@@ -6,11 +6,13 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import {verifyPhoneNumberWithOTP} from '../../../../Actions/authAction';
 import {myColors} from '../../../../Helpers/ColorHelper';
 import CustomIcon from '../../../../Common/CustomIcon';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-const LoginOTPFooterComponent = ({
+const RegisterOTPFooterComponent = ({
+  prevData = {},
   visibleButton = false,
   theme,
   onPress = () => {},
@@ -18,7 +20,13 @@ const LoginOTPFooterComponent = ({
   return (
     <KeyboardAvoidingView behavior="position">
       <View>
-        <TouchableOpacity disabled={!visibleButton} onPress={() => onPress()}>
+        <TouchableOpacity
+          disabled={!visibleButton}
+          onPress={() => {
+            verifyPhoneNumberWithOTP(prevData, (uid, component) => {
+              onPress(component, uid);
+            });
+          }}>
           <LinearGradient
             colors={
               visibleButton
@@ -61,4 +69,4 @@ const Styles = StyleSheet.create({
     borderRadius: 25,
   },
 });
-export default LoginOTPFooterComponent;
+export default RegisterOTPFooterComponent;

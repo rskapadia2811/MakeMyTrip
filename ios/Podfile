@@ -49,6 +49,11 @@ target 'MakeMyTrip' do
 
   pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
 
+pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
+pod 'Firebase/Core', '~> 6.13.0'
+pod 'Firebase/Auth', '~> 6.13.0'
+pod 'Firebase/Database', '~> 6.13.0'
+
   target 'MakeMyTripTests' do
     inherit! :search_paths
     # Pods for testing

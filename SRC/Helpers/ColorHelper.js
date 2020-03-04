@@ -26,6 +26,7 @@ const myColors = {
   black: '#000000',
   metBlack: '#1F1E1E',
   shadeBlack: '#3a3535',
+  lightBlack: '#404040',
 
   white: '#FFFFFF',
   silver: '#C0C0C0',
@@ -41,7 +42,7 @@ const myColors = {
   primaryBGColor: setColor('#FFFFFF', '#202020'),
   primaryContrastColor: setColor('#000000', '#FFFFFF'),
   primaryTextColor: setColor('#000000', '#FFFFFF'),
-  primaryActiveTextBoxLabelColor: setColor('#2A5FBA', '#f95775'),
+  primaryActiveTextBoxLabelColor: setColor('#3873FE', '#f95775'),
   primaryGradiantColor: setColor(
     ['#53b2fe', '#065af3'],
     ['#f95775', '#f0772c'],

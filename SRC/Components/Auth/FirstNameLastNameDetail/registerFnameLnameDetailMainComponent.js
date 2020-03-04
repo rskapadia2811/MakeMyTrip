@@ -26,11 +26,16 @@ export class RegisterFnameLnameDetailMainComponent extends Component {
   render() {
     return (
       <GLOBAL>
-        <View style={Styles.loginSignupMainContainer}>
+        <View
+          style={{
+            ...Styles.loginSignupMainContainer,
+            backgroundColor: myColors.primaryBGColor[this.props.theme],
+          }}>
           <RegisterFnameLnameDetailHeaderComponent
             navigation={this.props.navigation}
           />
           <RegisterFnameLnameDetailBodyComponent
+            theme={this.props.theme}
             prevData={this.props.navigation.getParam('prevData', '')}
             setVisibleButton={(value, prevData) => {
               this.setState({
@@ -44,7 +49,9 @@ export class RegisterFnameLnameDetailMainComponent extends Component {
           theme={this.props.theme}
           visibleButton={this.state.visibleButton}
           onPress={() => {
-            this.props.registerUser(this.prevData, this.registerThisUser);
+            let uid = this.prevData.uid;
+            delete this.prevData.uid;
+            this.props.registerUser(uid, this.prevData, this.registerThisUser);
           }}
         />
       </GLOBAL>

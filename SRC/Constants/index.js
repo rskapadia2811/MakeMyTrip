@@ -1,1 +1,2 @@
 export const THEME_CHANGE = 'THEME_CHANGE';
+export const SEARCH_FLIGHT_RO = 'SEARCH_FLIGHT_RO';

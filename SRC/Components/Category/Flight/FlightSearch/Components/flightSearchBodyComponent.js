@@ -13,6 +13,7 @@ const FlightSearchBodyComponent = ({
   state,
   index,
   fromDate,
+  toDate,
   setTrip = () => {},
   theme,
 }) => {
@@ -28,6 +29,7 @@ const FlightSearchBodyComponent = ({
             navigation={navigation}
             roundTrip={index === 1 ? true : false}
             fromDate={fromDate}
+            toDate={toDate}
             oneWayFromCityData={
               state.oneWayFromCityData && state.oneWayFromCityData
             }

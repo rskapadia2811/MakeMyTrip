@@ -1,25 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {widthPercentageToDP as wp} from '../../../../Helpers/screenHelper';
-import {
-  View,
-  Image,
-  Animated,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  TextInput,
-} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {myColors} from '../../../../Helpers/ColorHelper';
-import CustomCheckBox from '../../../../Common/CustomCheckBox';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import CustomIcon from '../../../../Common/CustomIcon';
 import {fonts} from '../../../../Helpers/variableHelper';
-import LinearGradient from 'react-native-linear-gradient';
 import {lengthValidation} from '../../../../Helpers/validationHelper';
 import CustomTextInput from '../../../../Common/CustomTextInput';
 
 //
-const LoginOTPBodyComponent = ({setVisibleButton, prevData, navigation}) => {
+const LoginOTPBodyComponent = ({setVisibleButton, theme, navigation}) => {
   const [otp, setOtp] = useState(10);
   const [disable, setDisable] = useState(true);
   const [opacity, setOpacity] = useState(0.5);
@@ -37,12 +25,20 @@ const LoginOTPBodyComponent = ({setVisibleButton, prevData, navigation}) => {
   }, [otp]);
   const data = {phone: navigation.getParam('data').phone};
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: myColors.primaryBGColor[theme]}}>
       <View style={Styles.loginSignUpBodyContainer}>
-        <Text style={Styles.loginCreateAccountText}>
+        <Text
+          style={{
+            ...Styles.loginCreateAccountText,
+            color: myColors.primaryTextColor[theme],
+          }}>
           Verify Your Mobile Number
         </Text>
-        <Text style={{...Styles.toViewOrEditProfileText}}>
+        <Text
+          style={{
+            ...Styles.toViewOrEditProfileText,
+            color: myColors.primaryTextColor[theme],
+          }}>
           Enter OTP sent to {navigation.getParam('data').phone}
         </Text>
         <View style={{...Styles.textInputContainer}}>
@@ -74,7 +70,16 @@ const LoginOTPBodyComponent = ({setVisibleButton, prevData, navigation}) => {
                 style={{
                   opacity: opacity,
                 }}>
-                <Text style={{...Styles.resendOTPText}}>Resend OTP</Text>
+                <Text
+                  style={{
+                    ...Styles.resendOTPText,
+                    color:
+                      theme === 'light'
+                        ? myColors.lightBlue
+                        : myColors.darkPink,
+                  }}>
+                  Resend OTP
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -130,48 +135,6 @@ const Styles = StyleSheet.create({
     borderBottomWidth: 2.5,
     borderBottomColor: myColors.lightBlue,
     fontFamily: fonts.latoRegular,
-  },
-  btnApply: {
-    position: 'absolute',
-    alignSelf: 'flex-end',
-    backgroundColor: myColors.white,
-    padding: wp(3),
-  },
-  applyText: {
-    fontSize: wp(4),
-    color: myColors.lightBlue,
-    fontFamily: fonts.latoBold,
-  },
-
-  referralCodeContainer: {
-    marginTop: wp(10),
-  },
-  referrelCode2Container: {},
-  orConnectText: {
-    fontSize: wp(3),
-    fontFamily: fonts.latoBold,
-    color: myColors.lightGrey,
-    marginTop: wp(8),
-  },
-  socialMediaConnectContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginTop: wp(6),
-  },
-  singleSocialMediaConnectContainer: {
-    flexDirection: 'row',
-    backgroundColor: myColors.white,
-    padding: wp(3),
-    width: wp(40),
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    shadowColor: 'black',
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    shadowOffset: {x: 5, y: 5},
-    elevation: 10,
   },
   autoFetchContainer: {
     flexDirection: 'row',

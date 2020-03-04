@@ -1,10 +1,12 @@
 import {flightSearchState} from '../States/initialStates';
 import {SEARCH_FLIGHT_RO} from '../Constants';
-const SearchFlightReducer = (state = flightSearchState, action) => {
-  switch (action.type) {
-    case SEARCH_FLIGHT_RO: {
-      flightSearchState: action.payload.flightData;
-    }
+const SearchFlightROReducer = (state = flightSearchState, action) => {
+  debugger;
+  if (action.type === SEARCH_FLIGHT_RO) {
+    return {
+      flightData: action.payload.flightData,
+    };
   }
+  return state;
 };
-export default SearchFlightReducer;
+export default SearchFlightROReducer;

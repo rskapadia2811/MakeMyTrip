@@ -37,8 +37,12 @@ export class LoginOTPMainComponent extends Component {
     return (
       <GLOBAL>
         <View style={Styles.loginSignupMainContainer}>
-          <LoginOTPHeaderComponent navigation={this.props.navigation} />
+          <LoginOTPHeaderComponent
+            theme={this.props.theme}
+            navigation={this.props.navigation}
+          />
           <LoginOTPBodyComponent
+            theme={this.props.theme}
             navigation={this.props.navigation}
             prevData={this.data}
             setVisibleButton={(value, prevData) => {

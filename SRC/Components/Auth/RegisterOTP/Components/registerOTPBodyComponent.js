@@ -7,7 +7,12 @@ import {lengthValidation} from '../../../../Helpers/validationHelper';
 import CustomTextInput from '../../../../Common/CustomTextInput';
 
 //
-const LoginOTPBodyComponent = ({setVisibleButton, theme, navigation}) => {
+const RegisterOTPBodyComponent = ({
+  setVisibleButton,
+  prevData,
+  theme,
+  navigation,
+}) => {
   const [otp, setOtp] = useState(10);
   const [disable, setDisable] = useState(true);
   const [opacity, setOpacity] = useState(0.5);
@@ -23,7 +28,6 @@ const LoginOTPBodyComponent = ({setVisibleButton, theme, navigation}) => {
     }, 1000);
     return () => clearInterval(interval);
   }, [otp]);
-  const data = {phone: navigation.getParam('data').phone};
   return (
     <View style={{flex: 1, backgroundColor: myColors.primaryBGColor[theme]}}>
       <View style={Styles.loginSignUpBodyContainer}>
@@ -49,10 +53,10 @@ const LoginOTPBodyComponent = ({setVisibleButton, theme, navigation}) => {
               placeHolderText={'Enter OTP'}
               autoFocus={true}
               returnKeyType={'next'}
-              secureTextEntry={true}
               onChangeText={text => {
                 if (!isNaN(text) && lengthValidation(text, 6, 6)) {
-                  setVisibleButton(true, data);
+                  prevData.OTP = text;
+                  setVisibleButton(true, prevData);
                 } else {
                   setVisibleButton(false);
                 }
@@ -162,4 +166,4 @@ const Styles = StyleSheet.create({
     fontSize: wp(3.5),
   },
 });
-export default LoginOTPBodyComponent;
+export default RegisterOTPBodyComponent;

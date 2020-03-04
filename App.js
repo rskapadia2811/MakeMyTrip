@@ -3,6 +3,7 @@ import {} from 'react-native';
 import AppNavigator from './SRC/Navigations/AppNavigator';
 import {Provider} from 'react-redux';
 import configStore from './SRC/Stores';
+import {auth} from 'react-native-firebase';
 
 class App extends Component {
   constructor() {
@@ -11,6 +12,8 @@ class App extends Component {
       theme: 'dark',
     };
   }
+  componentDidMount(): void {}
+
   render() {
     return (
       <Provider store={configStore}>

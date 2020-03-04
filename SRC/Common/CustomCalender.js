@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {CalendarList} from 'react-native-calendars';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {fonts} from '../Helpers/variableHelper';
 import moment from 'moment';
 import {myColors} from '../Helpers/ColorHelper';
@@ -15,9 +15,11 @@ const CustomCalender = ({
   minDate = new Date(),
   maxDate = new Date().setMonth(new Date().getMonth() + 4),
   onDateSelect = () => {},
+  onDatePress = () => {},
   markedDate = null,
   ...props
 }) => {
+  const theme = useSelector(state => state.ThemeReducer.theme);
   const [currentDate, setCurrentDate] = useState(
     moment(selectedDate).format('YYYY-MM-DD'),
   );
@@ -28,8 +30,14 @@ const CustomCalender = ({
   }, [markedDate]);
   const today = moment(new Date()).format('YYYY-MM-DD');
   const markedDates = {
-    [today]: {color: props.theme === 'dark' ? myColors.red : myColors.blue},
-    [currentDate]: {color: myColors.white, backgroundColor: myColors.shadeBlue},
+    [today]: {
+      color: theme === 'dark' ? myColors.darkPink : myColors.blue,
+    },
+    [currentDate]: {
+      color: myColors.white,
+      backgroundColor:
+        theme === 'dark' ? myColors.darkPink : myColors.lightBlue,
+    },
     ...markedDate,
   };
   return (
@@ -39,11 +47,11 @@ const CustomCalender = ({
           position: 'absolute',
           zIndex: 5,
           alignSelf: 'center',
-          bottom: wp(15),
+          bottom: wp(100),
         }}>
         <TouchableOpacity onPress={() => onDateSelect(currentDate)}>
           <LinearGradient
-            colors={myColors.primaryGradiantColor[props.theme]}
+            colors={myColors.primaryGradiantColor[theme]}
             style={{...Styles.searchButtonContainer}}>
             <Text style={{...Styles.searchText}}>DONE</Text>
           </LinearGradient>
@@ -60,7 +68,8 @@ const CustomCalender = ({
           <TouchableOpacity
             onPress={() => {
               if (!(state && state === 'disabled')) {
-                setCurrentDate(moment(date.dateString).format('YYYY-MM-DD'));
+                let dt = moment(date.dateString).format('YYYY-MM-DD');
+                setCurrentDate(dt);
               }
             }}>
             <View
@@ -74,8 +83,8 @@ const CustomCalender = ({
                   (marking && marking.backgroundColor)
                     ? marking && marking.backgroundColor
                       ? marking.backgroundColor
-                      : myColors.shadeBlue
-                    : myColors.primaryBGColor[props.theme],
+                      : myColors.primaryActiveTextBoxLabelColor[theme]
+                    : myColors.primaryBGColor[theme],
                 padding: wp(2),
               }}>
               <Text
@@ -86,7 +95,7 @@ const CustomCalender = ({
                       ? 'gray'
                       : marking && marking.color
                       ? marking.color
-                      : myColors.primaryTextColor[props.theme],
+                      : myColors.primaryTextColor[theme],
                 }}>
                 {date.day}
               </Text>
@@ -98,15 +107,15 @@ const CustomCalender = ({
         showScrollIndicator={false}
         monthFormat={'MMMM yyyy'}
         hideArrows={true}
-        // Do not show days of other months in month page. Default = false
         hideExtraDays={true}
+        hideDayNames={true}
         firstDay={0}
         theme={{
-          calendarBackground: myColors.primaryBGColor[props.theme],
+          calendarBackground: myColors.primaryBGColor[theme],
           textSectionTitleColor: myColors.silver,
           textSectionFontSize: 10,
           todayTextColor: myColors.sky,
-          monthTextColor: myColors.primaryTextColor[props.theme],
+          monthTextColor: myColors.primaryTextColor[theme],
           textDayFontFamily: fonts.latoBlack,
           textMonthFontFamily: fonts.latoBlack,
           textDayFontWeight: 'bold',
@@ -136,18 +145,5 @@ const Styles = StyleSheet.create({
     fontFamily: fonts.latoBlack,
   },
 });
-const reRender = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue(value => ++value); // update the state to force render
-};
 
-const mapStateToProps = state => {
-  return {
-    theme: state.ThemeReducer.theme,
-  };
-};
-export default connect(
-  mapStateToProps,
-  null,
-)(CustomCalender);
+export default CustomCalender;

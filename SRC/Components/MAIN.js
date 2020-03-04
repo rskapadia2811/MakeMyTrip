@@ -16,7 +16,7 @@ class MAIN extends Component {
     });
     getAsyncData('welcomePage').then(data => {
       if (data == '1') {
-        getAsyncData('email').then(data => {
+        getAsyncData('uid').then(data => {
           if (data) {
             this.props.navigation.navigate('HomeComponent');
           } else {

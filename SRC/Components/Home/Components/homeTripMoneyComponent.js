@@ -8,7 +8,6 @@ import {
   widthPercentageToDP as wp,
 } from '../../../Helpers/screenHelper';
 const HomeTripMoneyComponent = ({theme}) => {
-  debugger;
   return (
     <View
       style={{

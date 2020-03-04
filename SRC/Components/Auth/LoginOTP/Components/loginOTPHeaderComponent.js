@@ -1,15 +1,17 @@
 import React from 'react';
-import {
-  widthPercentageToDP as wp,
-} from '../../../../Helpers/screenHelper';
+import {widthPercentageToDP as wp} from '../../../../Helpers/screenHelper';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CustomIcon from '../../../../Common/CustomIcon';
 import {myColors} from '../../../../Helpers/ColorHelper';
 
-const LoginOTPHeaderComponent = ({navigation}) => {
+const LoginOTPHeaderComponent = ({theme, navigation}) => {
   return (
-    <View style={Styles.loginSignUpHeaderContainer}>
+    <View
+      style={{
+        ...Styles.loginSignUpHeaderContainer,
+        backgroundColor: myColors.primaryBGColor[theme],
+      }}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <CustomIcon
           IconType={Ionicons}

@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
 import {widthPercentageToDP as wp} from '../../../../Helpers/screenHelper';
 import {KeyboardAvoidingView, Switch, Text, StyleSheet} from 'react-native';
+import {connect} from 'react-redux';
 import {fonts} from '../../../../Helpers/variableHelper';
 import LinearGradient from 'react-native-linear-gradient';
 import {myColors} from '../../../../Helpers/ColorHelper';
-const LoginSignUpFooterComponent = ({theme}) => {
-  const [personalOrmyBiz, setPersonalOrMyBiz] = useState(false);
+import {changeTheme} from '../../../../Actions/ThemeAction';
+const LoginSignUpFooterComponent = ({theme, ...props}) => {
+  const [lightOrdark, setLightOrDark] = useState(
+    theme === 'light' ? false : true,
+  );
   return (
     <KeyboardAvoidingView behavior="position">
       <LinearGradient
@@ -13,15 +17,24 @@ const LoginSignUpFooterComponent = ({theme}) => {
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}
         style={Styles.loginSignUpFooterContainer}>
-        <Text style={{...Styles.bottomText, marginRight: wp(8)}}>Personal</Text>
+        <Text style={{...Styles.bottomText, marginRight: wp(8)}}>
+          Light Mode
+        </Text>
         <Switch
-          value={personalOrmyBiz}
-          onValueChange={value => setPersonalOrMyBiz(value)}
+          value={lightOrdark}
+          onValueChange={value => {
+            setLightOrDark(value);
+            if (value == true) {
+              props.changeTheme();
+            } else {
+              props.changeTheme();
+            }
+          }}
           trackColor={myColors.primaryBGColor[theme]}
           ios_backgroundColor={myColors.primaryBGColor[theme]}
           thumbColor={myColors.primaryTextColor[theme]}
         />
-        <Text style={{...Styles.bottomText, marginLeft: wp(8)}}>myBiz</Text>
+        <Text style={{...Styles.bottomText, marginLeft: wp(8)}}>Dark Mode</Text>
       </LinearGradient>
     </KeyboardAvoidingView>
   );
@@ -43,4 +56,10 @@ const Styles = StyleSheet.create({
     color: myColors.white,
   },
 });
-export default LoginSignUpFooterComponent;
+const mapDispatchToProps = {
+  changeTheme,
+};
+export default connect(
+  null,
+  mapDispatchToProps,
+)(LoginSignUpFooterComponent);

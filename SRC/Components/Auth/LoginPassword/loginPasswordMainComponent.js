@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {myColors} from '../../../Helpers/ColorHelper';
+import {auth} from 'react-native-firebase';
 // Component
 import LoginPasswordHeaderComponent from './Components/loginPasswordHeaderComponent';
 import LoginPasswordBodyComponent from './Components/loginPasswordBodyComponent';
@@ -16,20 +17,31 @@ export class LoginPasswordMainComponent extends Component {
   };
   constructor() {
     super();
+    this.unsubscriber = null;
     this.state = {
+      user: null,
       visibleButton: false,
     };
   }
   componentDidMount(): void {
     this.data = this.props.navigation.getParam('data', '');
   }
+  componentWillUnmount(): void {
+    if (this.unsubscriber) {
+      this.unsubscriber();
+    }
+  }
 
   render() {
     return (
       <GLOBAL>
         <View style={Styles.loginSignupMainContainer}>
-          <LoginPasswordHeaderComponent navigation={this.props.navigation} />
+          <LoginPasswordHeaderComponent
+            theme={this.props.theme}
+            navigation={this.props.navigation}
+          />
           <LoginPasswordBodyComponent
+            theme={this.props.theme}
             prevData={this.data}
             setVisibleButton={(value, prevData) => {
               this.setState({
@@ -73,7 +85,7 @@ const Styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    theme: this.props.theme,
+    theme: state.ThemeReducer.theme,
   };
 };
 const mapDispatchToProps = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {View} from 'react-native';
 import CustomIcon from './CustomIcon';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -18,8 +18,8 @@ const CustomCheckBox = ({
   iconType = MaterialCommunityIcons,
   openCheckBoxIconName = 'checkbox-blank-outline',
   selectedCheckBoxIconName = 'checkbox-marked',
-  ...props
 }) => {
+  const theme = useSelector(state => state.ThemeReducer.theme);
   let initArray = initialData ? initialData : [];
   let direction = horizontal === true ? 'row' : 'column';
   return (
@@ -49,7 +49,7 @@ const CustomCheckBox = ({
             checked={selected}
             labelStyle={{
               ...labelStyle,
-              color: myColors.primaryTextColor[props.theme],
+              color: myColors.primaryTextColor[theme],
             }}
             label={showLabel === true ? item : null}
             onChange={value => {
@@ -66,12 +66,5 @@ const CustomCheckBox = ({
     </View>
   );
 };
-const mapStateToProps = state => {
-  return {
-    theme: state.ThemeReducer.theme,
-  };
-};
-export default connect(
-  mapStateToProps,
-  null,
-)(CustomCheckBox);
+
+export default CustomCheckBox;

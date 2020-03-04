@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {NavigationEvents} from 'react-navigation';
-import {myColors} from '../../../../Helpers/ColorHelper';
 import {connect} from 'react-redux';
 import FlightSearchHeaderComponent from './Components/flightSearchHeaderComponent';
 import FlightSearchBodyComponent from './Components/flightSearchBodyComponent';
@@ -12,6 +11,7 @@ class FlightSearchMainComponent extends Component {
     this.state = {
       wayIndex: 0,
       fromDate: new Date(),
+      toDate: new Date(),
       oneWayFromCityData: null,
       oneWayToCityData: null,
     };
@@ -25,6 +25,15 @@ class FlightSearchMainComponent extends Component {
       () => {},
     );
   };
+
+  componentWillReceiveProps(nextProps): void {
+    let navParams = nextProps.navigation.state.params;
+    if (navParams && navParams.way && navParams.way === 'depature') {
+      this.setState({fromDate: navParams.date});
+    } else if (navParams && navParams.way && navParams.way === 'return') {
+      this.setState({toDate: navParams.date});
+    }
+  }
 
   render() {
     return (
@@ -54,13 +63,8 @@ class FlightSearchMainComponent extends Component {
             setTrip={value => {
               this.setState({wayIndex: value});
             }}
-            fromDate={
-              this.props &&
-              this.props.navigation &&
-              this.props.navigation.state &&
-              this.props.navigation.state.params &&
-              this.props.navigation.state.params.date
-            }
+            fromDate={this.state.fromDate}
+            toDate={this.state.toDate}
           />
         </View>
       </GLOBAL>

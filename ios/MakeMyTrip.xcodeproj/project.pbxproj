@@ -22,6 +22,7 @@
 		60D1CCB18FA04BD887B06C2D /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B09D85BE6D343CAA0B43B8C /* Lato-Thin.ttf */; };
 		62A0DBF19C174F349A1D87F8 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E38D78D93D744E6989450F3 /* Lato-BlackItalic.ttf */; };
 		82EB4AA151AC4B71BC78232F /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E427EDEBA1EE48D3876CDB91 /* Lato-Bold.ttf */; };
+		8642836A23FE504800D88642 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8642836923FE504800D88642 /* GoogleService-Info.plist */; };
 		8658AF3423F568F800337882 /* MyImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8658AF3323F568F800337882 /* MyImageView.m */; };
 		867D75EC23DEB37D004E7518 /* mmtLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 867D75EB23DEB37D004E7518 /* mmtLogo.png */; };
 		8975D09FBC3EB3A29753C8AB /* libPods-MakeMyTrip-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C90EBD7C54CB9A86C19C9108 /* libPods-MakeMyTrip-tvOS.a */; };
@@ -84,6 +85,7 @@
 		6F2240C7043E4C4A8ABD0A55 /* Lato-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Black.ttf"; path = "../SRC/Assets/Fonts/Lato-Black.ttf"; sourceTree = "<group>"; };
 		7AE25FDE50C8AC39798040A2 /* Pods-MakeMyTrip-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeMyTrip-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MakeMyTrip-tvOS/Pods-MakeMyTrip-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		8614E9C223F7B47300DC92C1 /* RCTRestart.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTRestart.xcodeproj; path = "../node_modules/react-native-restart/ios/RCTRestart.xcodeproj"; sourceTree = "<group>"; };
+		8642836923FE504800D88642 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8658AF3223F568F800337882 /* MyImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MyImageView.h; path = MakeMyTrip/MyImageView.h; sourceTree = "<group>"; };
 		8658AF3323F568F800337882 /* MyImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MyImageView.m; path = MakeMyTrip/MyImageView.m; sourceTree = "<group>"; };
 		867D75EB23DEB37D004E7518 /* mmtLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mmtLogo.png; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				8642836923FE504800D88642 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* MakeMyTrip */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* MakeMyTripTests */,
@@ -437,6 +440,7 @@
 				60D1CCB18FA04BD887B06C2D /* Lato-Thin.ttf in Resources */,
 				EE1C242071C84AB1851F1B7C /* Lato-ThinItalic.ttf in Resources */,
 				867D75EC23DEB37D004E7518 /* mmtLogo.png in Resources */,
+				8642836A23FE504800D88642 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

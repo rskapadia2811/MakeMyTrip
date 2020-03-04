@@ -1,9 +1,9 @@
 import {THEME_CHANGE} from '../Constants';
-export const changeTheme = (data = null) => {
+export const changeTheme = (mode = null) => {
   return dispatch => {
     dispatch({
       type: THEME_CHANGE,
-      payload: {theme: data},
+      payload: {theme: mode},
     });
   };
 };

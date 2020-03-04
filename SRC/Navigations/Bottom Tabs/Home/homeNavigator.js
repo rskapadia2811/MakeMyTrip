@@ -3,12 +3,17 @@ import HomeMainComponent from '../../../Components/Home/homeMainComponent';
 import FlightSearchMainComponent from '../../../Components/Category/Flight/FlightSearch/flightSearchMainComponent';
 import SearchAirportCityMainComponent from '../../../Components/Category/Flight/SearchAirportCity/searchAirportCityMainComponent';
 import DateSelectionComponent from '../../../Components/DateSelectionComponent/dateSelectionComponent';
+import TravellersAndClassMainComponent from '../../../Components/Category/Flight/TravellersAndClass/travellersAndClassMainComponent';
+import FlightDisplayMainComponent from '../../../Components/Category/Flight/FlightDisplay/flightDisplayMainComponent';
 // Flight Stack Navigator
 const FlightStackNavigator = createStackNavigator(
   {
     FlightSearchComponent: FlightSearchMainComponent,
+    FlightDisplayComponent: FlightDisplayMainComponent,
     SearchAirportCityComponent: SearchAirportCityMainComponent,
     DateSelectionComponent,
+
+    TravellersAndClassComponent: TravellersAndClassMainComponent,
   },
   {
     headerMode: 'none',

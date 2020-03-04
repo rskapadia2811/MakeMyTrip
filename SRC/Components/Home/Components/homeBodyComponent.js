@@ -27,19 +27,13 @@ class HomeBodyComponent extends Component {
                 outputRange:
                   this.props.theme === 'light'
                     ? [myColors.white, myColors.lightSky]
-                    : [myColors.primaryBGColor[this.props.theme], 'black'],
+                    : [myColors.primaryBGColor[this.props.theme], '#303030'],
               }),
               elevation: this.scroll.interpolate({
                 inputRange: [0, 100],
                 outputRange: [0, 10],
               }),
-              shadowColor: this.scroll.interpolate({
-                inputRange: [0, 100],
-                outputRange: [
-                  this.props.theme === 'dark' ? myColors.black : myColors.white,
-                  this.props.theme === 'dark' ? myColors.white : myColors.black,
-                ],
-              }),
+              shadowColor: myColors.black,
               shadowOpacity: this.scroll.interpolate({
                 inputRange: [0, 100],
                 outputRange: [0, 0.8],

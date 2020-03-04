@@ -1,8 +1,9 @@
-package com.makemytrip;
+package com.makemytripdemo;
 
 import android.app.Application;
 import android.content.Context;
-import com.facebook.react.PackageList;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+
 import com.facebook.react.ReactApplication;
 import io.invertase.firebase.RNFirebasePackage;
 import com.reactnativecommunity.geolocation.GeolocationPackage;
@@ -22,7 +23,7 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
-
+import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -36,6 +37,8 @@ public class MainApplication extends Application implements ReactApplication {
           protected List<ReactPackage> getPackages() {
               return Arrays.<ReactPackage>asList(
                       new MainReactPackage(),
+                      new RNFirebaseAuthPackage(),
+                      new RNFirebaseDatabasePackage(),
             new RNFirebasePackage(),
             new GeolocationPackage(),
             new ReactNativeRestartPackage(),
@@ -45,6 +48,7 @@ public class MainApplication extends Application implements ReactApplication {
             new ReanimatedPackage(),
             new RNGestureHandlerPackage(),
                       new SplashScreenReactPackage()  //here
+
               );
           }
 

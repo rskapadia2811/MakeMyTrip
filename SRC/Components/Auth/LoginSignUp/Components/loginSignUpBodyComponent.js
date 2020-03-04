@@ -1,12 +1,6 @@
 import React, {useState} from 'react';
 import {widthPercentageToDP as wp} from '../../../../Helpers/screenHelper';
-import {
-  View,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import {View, Image, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import CustomCheckBox from '../../../../Common/CustomCheckBox';
 import CustomTextInput from '../../../../Common/CustomTextInput';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -121,7 +115,10 @@ const LoginSignUpBodyComponent = ({emailMobileCheck, theme}) => {
             forceUpdate();
           }}
           openCheckBoxStyle={{color: myColors.lightGrey, size: 27}}
-          selectedCheckBoxStyle={{color: myColors.lightBlue, size: 27}}
+          selectedCheckBoxStyle={{
+            color: theme === 'dark' ? myColors.darkPink : myColors.lightBlue,
+            size: 27,
+          }}
           labelStyle={{fontSize: 15}}
         />
       </View>

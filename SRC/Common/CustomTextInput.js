@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {TextInput, View, StyleSheet, Text} from 'react-native';
 import {widthPercentageToDP as wp} from '../Helpers/screenHelper';
 import {fonts} from '../Helpers/variableHelper';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {myColors} from '../Helpers/ColorHelper';
 const CustomTextInput = ({
   style = null,
@@ -29,6 +29,7 @@ const CustomTextInput = ({
   keyboardType = 'default',
   ...props
 }) => {
+  const theme = useSelector(state => state.ThemeReducer.theme);
   const [focus, setFocus] = useState(false);
   const [show, setShow] = useState('none');
   const [txtLength, setTxtLength] = useState(0);
@@ -39,10 +40,10 @@ const CustomTextInput = ({
         ...style,
         borderBottomColor:
           showBottomBorder && focus
-            ? props.theme === 'light'
+            ? theme === 'light'
               ? myColors.lightBlue
               : myColors.darkPink
-            : props.theme === 'dark'
+            : theme === 'dark'
             ? myColors.white
             : myColors.black,
         borderBottomWidth: showBottomBorder ? (focus ? 3 : 1) : 0,
@@ -55,7 +56,7 @@ const CustomTextInput = ({
             fontSize: labelFontSize,
             fontFamily: labelFontFamily,
             color: focus
-              ? myColors.primaryActiveTextBoxLabelColor[props.theme]
+              ? myColors.primaryActiveTextBoxLabelColor[theme]
               : deActiveLabelColor,
           }}>
           {labelText}
@@ -67,10 +68,10 @@ const CustomTextInput = ({
         style={{
           ...Styles.txtInput,
           fontFamily: textInputFontFamily,
-          color: props.theme === 'dark' ? myColors.white : myColors.black,
+          color: theme === 'dark' ? myColors.white : myColors.black,
         }}
         selectionColor={
-          props.theme === 'light' ? myColors.lightBlue : myColors.darkPink
+          theme === 'light' ? myColors.lightBlue : myColors.darkPink
         }
         autoFocus={autoFocus}
         autoCapitalize={autoCapitalize}
@@ -124,12 +125,5 @@ const Styles = StyleSheet.create({
     position: 'absolute',
   },
 });
-const mapStateToProps = state => {
-  return {
-    theme: state.ThemeReducer.theme,
-  };
-};
-export default connect(
-  mapStateToProps,
-  null,
-)(CustomTextInput);
+
+export default CustomTextInput;

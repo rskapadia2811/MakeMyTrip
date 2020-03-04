@@ -1,4 +1,4 @@
-package com.makemytrip;
+package com.makemytripdemo;
 
 import android.os.Bundle;
 

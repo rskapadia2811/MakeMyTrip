@@ -3,16 +3,16 @@ import {connect} from 'react-redux';
 import {View, StyleSheet} from 'react-native';
 import {myColors} from '../../../Helpers/ColorHelper';
 // Component
-import LoginOTPHeaderComponent from './Components/loginOTPHeaderComponent';
-import LoginOTPBodyComponent from './Components/loginOTPBodyComponent';
-import LoginOTPFooterComponent from './Components/loginOTPFooterComponent';
+import RegisterOTPHeaderComponent from './Components/registerOTPHeaderComponent';
+import RegisterOTPBodyComponent from './Components/registerOTPBodyComponent';
+import RegisterOTPFooterComponent from './Components/registerOTPFooterComponent';
 
 // Action
 import {loginWithEmail} from '../../../Actions/authAction';
 import GLOBAL from '../../GLOBAL';
 
-export class LoginOTPMainComponent extends Component {
-  loginPasswordCallback = component => {
+export class RegisterOTPMainComponent extends Component {
+  registerPasswordCallback = component => {
     this.props.navigation.navigate(component);
   };
   constructor() {
@@ -22,26 +22,27 @@ export class LoginOTPMainComponent extends Component {
     };
     this.email = '';
     this.phone = '';
+    this.confirmResult = '';
   }
   componentDidMount(): void {
-    let data = this.props.navigation.getParam('data', '');
-    if (data && data.email) {
-      this.email = data.email;
-    } else if (data && data.phone) {
-      this.phone = data.phone;
-    }
-    this.data = {email: this.email, phone: this.phone};
+    this.phone = this.props.navigation.state.params.data.phone;
+    this.confirmResult = this.props.navigation.state.params.data.confirmResult;
+    this.data = {
+      email: '',
+      phone: this.phone,
+      confirmResult: this.confirmResult,
+    };
   }
 
   render() {
     return (
       <GLOBAL>
         <View style={Styles.loginSignupMainContainer}>
-          <LoginOTPHeaderComponent
+          <RegisterOTPHeaderComponent
             theme={this.props.theme}
             navigation={this.props.navigation}
           />
-          <LoginOTPBodyComponent
+          <RegisterOTPBodyComponent
             theme={this.props.theme}
             navigation={this.props.navigation}
             prevData={this.data}
@@ -53,12 +54,16 @@ export class LoginOTPMainComponent extends Component {
             }}
           />
         </View>
-        <LoginOTPFooterComponent
+        <RegisterOTPFooterComponent
+          prevData={this.prevData}
           theme={this.props.theme}
           visibleButton={this.state.visibleButton}
-          onPress={() => {
-            this.props.navigation.navigate('LoginPasswordComponent', {
-              data: this.prevData,
+          onPress={(component, uid) => {
+            delete this.prevData.confirmResult;
+            delete this.prevData.OTP;
+            this.prevData.uid = uid;
+            this.props.navigation.navigate(component, {
+              prevData: this.prevData,
             });
           }}
         />
@@ -89,4 +94,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(LoginOTPMainComponent);
+)(RegisterOTPMainComponent);

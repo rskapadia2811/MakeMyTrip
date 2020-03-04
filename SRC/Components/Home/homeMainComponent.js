@@ -1,12 +1,18 @@
 import React, {Component, PropTypes} from 'react';
 import {View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
+import {get} from '../../Firebase/all';
 import GLOBAL from '../GLOBAL';
+import {checkEmailExistInDB} from '../../Actions/authAction';
 // Components
 import HomeHeaderComponent from './Components/homeHeaderComponent';
 import HomeBodyComponent from './Components/homeBodyComponent';
 import {myColors} from '../../Helpers/ColorHelper';
 class HomeMainComponent extends Component {
+  componentDidMount(): void {
+    checkEmailExistInDB();
+  }
+
   render() {
     return (
       <GLOBAL>
